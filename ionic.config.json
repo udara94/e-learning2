@@ -1,0 +1,8 @@
+{
+  "name": "StudentHelpDesk",
+  "app_id": "cc818798",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

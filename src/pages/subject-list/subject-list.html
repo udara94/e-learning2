@@ -1,0 +1,34 @@
+<!--
+  Generated template for the SubjectListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>subjectList</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<h3>subject</h3>
+    <ion-input type="text" [(ngModel)]="subject"></ion-input>
+    <button ion-button (click)="add()">ADD</button>
+
+    
+  <ion-list  >
+    <ion-item *ngFor="let subject of subjects | async">
+      
+      <h2>
+        {{ subject.subject }}
+        </h2>
+    </ion-item>
+  </ion-list>
+
+
+
+
+</ion-content>

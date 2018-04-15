@@ -1,0 +1,61 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Ask Quesions</ion-title>
+    <ion-buttons end (click)="close()">
+      <button ion-button>
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+    </ion-buttons>
+
+
+  </ion-navbar>
+
+</ion-header>
+
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label floating>Module</ion-label>
+    <ion-input type="text"  [(ngModel)]="search" (click)="addSearchPage()"></ion-input>
+  </ion-item>
+  <h1></h1>
+
+  <!-- <ion-item>
+      <select-searchable  (ionInput)="getItems($event)" [(ngModel)]="port" title="Portud" itemValueField="id" itemTextField="name" [items]="countryList " [canSearch]="true"> </select-searchable>
+  </ion-item>
+
+
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+<ion-list>
+  <ion-item *ngFor="let module of countryList">
+    <h2> {{ module.name }} </h2>
+  </ion-item>
+</ion-list>-->
+
+
+  <ion-item>
+      <ion-label floating>Question Title</ion-label>
+    <ion-input type="text"  [(ngModel)]="title"></ion-input>
+  </ion-item>
+<br><br>
+
+  <textarea class="textarea" placeholder="Enter your question here"  (input)="adjustTextarea($event);"  [(ngModel)]="question" required autosize></textarea>
+
+
+  <!--<ion-item>
+  <ion-input type="text"  placeholder="module" [(ngModel)]="testing"></ion-input>
+</ion-item>
+
+<button ion-button (click)="enterModule()" >Add</button>-->
+
+</ion-content>
+
+<ion-footer>
+<div class="sendDiv">
+  <button ion-button (click)="addQuestion()">Post&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
+</div>
+</ion-footer>

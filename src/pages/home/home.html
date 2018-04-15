@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Home
+    </ion-title>
+    <div class="div" end>
+      <button ion-button icon-only (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </div>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="background-page">
+
+
+</ion-content>
+<ion-footer>
+
+  <ion-segment [(ngModel)]="selectedSegment" style="background-color: #90CAF9">
+
+    <ion-segment-button value="channel" (click)="questions()">
+      <ion-icon name="help-circle"></ion-icon>
+    </ion-segment-button>
+
+
+  </ion-segment>
+
+</ion-footer>
