@@ -24,7 +24,11 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
 import { SelectSearchableModule } from 'ionic-select-searchable';
+import { Pro } from '@ionic/pro';
 
+Pro.init('f008f6ca', {
+  appVersion: '0.0.1'
+})
 
 
 var config={
