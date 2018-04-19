@@ -1,14 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams,ViewController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController, NavParams,ViewController,Content ,Scroll } from 'ionic-angular';
 import { SelectSearchable } from 'ionic-select-searchable';
 import firebase from 'firebase';
 import { QuesionsPage } from '../quesions/quesions';
-/**
- * Generated class for the SearchModulePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 
 @Component({
@@ -17,6 +12,9 @@ import { QuesionsPage } from '../quesions/quesions';
 })
 export class SearchModulePage {
 
+  @ViewChild(Content) content: Content;
+  //@ViewChild(Scroll) scroll: Scroll;
+
   public countryList: Array<any>;
   public loadedCountryList: Array<any>;
   public countryRef: firebase.database.Reference;
@@ -24,7 +22,7 @@ export class SearchModulePage {
   public selectedModule: any;
   public search: any = "";
   public searchModule: any = "";
-
+  showMe =false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -44,6 +42,8 @@ export class SearchModulePage {
     });
 
   }
+
+
 
   initializeItems(): void {
     this.countryList = this.loadedCountryList;
@@ -93,6 +93,17 @@ export class SearchModulePage {
     this.navCtrl.push(QuesionsPage, { selectedModule });
   }
 
+  scrollToTop() {
+    this.content.scrollToTop();
+  }
+
+/*  ngAfterViewInit() {
+    this.scroll.addScrollEventListener(this.onScroll);
+}
+onScroll(event) {
+  console.log(event);
+  this.showMe=true;
+}*/
 
   close() {
     this.navCtrl.pop();

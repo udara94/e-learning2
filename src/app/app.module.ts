@@ -24,11 +24,9 @@ import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
 import { SelectSearchableModule } from 'ionic-select-searchable';
-import { Pro } from '@ionic/pro';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
-Pro.init('f008f6ca', {
-  appVersion: '0.0.1'
-})
+
 
 
 var config={
@@ -64,7 +62,7 @@ var config={
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    SelectSearchableModule
+    SelectSearchableModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -87,7 +85,8 @@ var config={
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Camera
   ]
 })
 export class AppModule {}

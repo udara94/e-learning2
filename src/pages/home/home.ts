@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {SubjectListPage} from '../subject-list/subject-list';
-import {QuesionsPage} from '../quesions/quesions';
-import {AnswersPage} from '../answers/answers';
-import {QustionListPage} from '../qustion-list/qustion-list';
-import {HelpDeskPage} from '../help-desk/help-desk';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { SubjectListPage } from '../subject-list/subject-list';
+import { QuesionsPage } from '../quesions/quesions';
+import { AnswersPage } from '../answers/answers';
+import { QustionListPage } from '../qustion-list/qustion-list';
+import { HelpDeskPage } from '../help-desk/help-desk';
 import { PopoverController } from 'ionic-angular';
-import {PopOverPage} from '../pop-over/pop-over';
-import {ProfilePage} from '../profile/profile'
+import { PopOverPage } from '../pop-over/pop-over';
+import { ProfilePage } from '../profile/profile';
+
 
 @Component({
   selector: 'page-home',
@@ -16,13 +17,15 @@ import {ProfilePage} from '../profile/profile'
 })
 export class HomePage {
 
-  email: string='';
 
-  constructor(public Popctrl:PopoverController, public navCtrl: NavController, private fire:AngularFireAuth) {
-      
-     // this.email= fire.auth.currentUser.email;
+  constructor(public Popctrl: PopoverController,
+    public navCtrl: NavController,
+    private fire: AngularFireAuth) {
+
 
   }
+
+
 
    presentPopover(myEvent) {
     let popover = this.Popctrl.create(PopOverPage);

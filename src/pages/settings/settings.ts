@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {LoginPage} from '../login/login';
+import {ProfilePage} from '../profile/profile'
 
 /**
  * Generated class for the SettingsPage page.
@@ -29,6 +30,10 @@ export class SettingsPage {
   logout(){
     this.fire.auth.signOut();
     this.navCtrl.push(LoginPage);
+  }
+
+  viewProfile(){
+    this.navCtrl.push(ProfilePage);
   }
 
 }
