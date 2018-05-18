@@ -12,33 +12,44 @@
 
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
+<ion-content padding class="content">
+  <ion-card>
   
-    <ion-item>
-      <ion-label floating>Registration Number</ion-label>
-      <ion-input type="email" [(ngModel)]="signupData.email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text" [(ngModel)]="signupData.username"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Feild of study</ion-label>
-      <ion-input type="text" [(ngModel)]="signupData.feild"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>email</ion-label>
-      <ion-input type="email" [(ngModel)]="signupData.ITNo"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="signupData.password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Re-Enter Password</ion-label>
-      <ion-input type="password" [(ngModel)]="signupData.passwordRetyped"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button full ion-button (click)="signup()" [disabled]="!signupData.email || !signupData.password || !signupData.passwordRetyped" >Signup</button>
+    <ion-card-content class="card-content">
+      <ion-list class="ion-list" >
+  
+        <ion-item class="item1" >
+          <ion-label floating>Registration Number</ion-label>
+          <ion-input type="email" [(ngModel)]="signupData.email"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item class="item2">
+          <ion-label floating>First Name</ion-label>
+          <ion-input type="text" [(ngModel)]="signupData.fname"></ion-input>
+        </ion-item>
+        <br>
+    
+        
+        
+       
+        <ion-item class="item5">
+          <ion-label floating>email</ion-label>
+          <ion-input type="email" [(ngModel)]="signupData.ITNo"></ion-input>
+        </ion-item>
+      
+        <br>
+        <ion-item class="item7">
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password" [(ngModel)]="signupData.password"></ion-input>
+        </ion-item>
+        <br>
+        <ion-item class="item8">
+          <ion-label floating>Re-Enter Password</ion-label>
+          <ion-input type="password" [(ngModel)]="signupData.passwordRetyped"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button full block round outline class="signupbtn" ion-button (click)="signup()" [disabled]="!signupData.email || !signupData.password || !signupData.passwordRetyped" >Signup</button>
+    </ion-card-content>
+  </ion-card>
+ 
 </ion-content>

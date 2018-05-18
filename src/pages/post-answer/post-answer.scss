@@ -1,0 +1,17 @@
+page-post-answer {
+
+    .textarea{
+        width: calc(100% - 10px);
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        max-width: 100%; width: 100%; height: 40vh;
+        background-color: #ffffcc;
+        border: 1px solid #b7bbbd;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        padding: 4px;
+    
+    }
+}

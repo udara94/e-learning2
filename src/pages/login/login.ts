@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {  NavController, NavParams,ToastController,AlertController } from 'ionic-angular';
 import {SignupPage} from '../signup/signup';
-//import {ForgotPasswordPage} '../forgot-password/forgot-password';
+import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {HomePage} from '../home/home'
 /**
@@ -71,7 +71,7 @@ export class LoginPage {
   }
 
   forgot(){
-  //  this.navCtrl.push(ForgotPasswordPage);
+  this.navCtrl.push(ForgotPasswordPage);
   }
 
     resetPassword(email: string) {

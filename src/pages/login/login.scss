@@ -1,3 +1,79 @@
-page-login {
 
-}
+page-login {
+  
+    .content{
+        background-image: url('../assets/imgs/books.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .scroll-content {
+        align-content: center;
+       
+        text-align: center;
+    }
+    ion-card.card {
+        box-shadow: none;
+        background:   #d9ad7c ;
+        border-radius: 10px;
+    }
+    a, p,
+    ion-card-header.card-header {
+        color: #fff!important;
+    }
+     
+    .list > .item-block:first-child {
+        border: medium none;
+    }
+     
+    .fogotbtn{
+        color: #674d3c;
+    }
+
+    .signupbtn{
+        color: #674d3c;
+    }
+    .loginbtn{
+        background:#674d3c;
+    }
+    .item {
+        margin-bottom: 10px;
+        background:#fbefcc;
+        border: medium none;
+     
+        .text-input, {
+            color:  #674d3c;
+        }
+     
+        
+        input::-moz-placeholder{
+            color: #674d3c !important;
+        }
+        input:-moz-placeholder {
+            color:  #674d3c !important;
+        }
+        *:-moz-placeholder{
+            color:  #674d3c !important;
+        }
+        *:-ms-input-placeholder{
+            color:  #674d3c !important;
+        }
+        *::-webkit-input-placeholder{
+            color:  #674d3c !important;
+        }
+     
+    }
+     
+    .icon {
+        padding-right: 10px;
+    }
+     
+    .bottom {
+        bottom: 0;
+    }
+     
+    .input-cover {
+    position: static;
+    }
+     
+    }

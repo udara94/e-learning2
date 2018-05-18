@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, ModalController, ViewController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController,Content ,NavParams, AlertController, ToastController, ModalController, ViewController, LoadingController } from 'ionic-angular';
 import { AnswersPage } from '../answers/answers';
 import { HelpDeskPage } from '../help-desk/help-desk';
 import { SearchModulePage } from '../search-module/search-module';
@@ -7,7 +7,7 @@ import { SelectSearchable } from 'ionic-select-searchable';
 import firebase from 'firebase';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { ProfileProvider } from '../../providers/profile/profile';
 
 @Component({
   selector: 'page-quesions',
@@ -15,7 +15,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class QuesionsPage {
 
-
+  @ViewChild(Content) content: Content;
 
 
   search: any = "";
@@ -27,10 +27,24 @@ export class QuesionsPage {
   searchModule: any = "";
   selectedModule: any = "";
   myStuff: any;
-  captureDataUrl: string;
-  URL: string;
+  captureDataUrl: string="";
+  URL: string="";
   public currentUser: any;
+  questionRef:any;
+  userid:any;
+  public quizRef : firebase.database.Reference =firebase.database().ref('/user');
+  public questions:Array<any>=[];
+  public userProfile: any;
+  public imageURL="";
+  public myDate: number;
+  public postedTime:any;
+  public getUserID:any;
+  public selectedQuestionRef:any;
+  
+  public fname:any;
 
+
+  
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -39,10 +53,11 @@ export class QuesionsPage {
     private toastCtrl: ToastController,
     private modelCtrl: ModalController,
     private viewCtrl: ViewController,
-    private camera: Camera) {
+    private camera: Camera,
+    private loadCtrl: LoadingController,
+    public ProfileProvider: ProfileProvider) {
 
  
-
     this.selectedModule = navParams.get('selectedModule');
 
 
@@ -52,7 +67,16 @@ export class QuesionsPage {
 
     this.alert = alert;
 
+    var date = new Date(); // Or the date you'd like converted.
+    this.myDate = date.getTime() 
+   this.postedTime=this.myDate;
+    console.log("time:"+date.getTime());
+
+    
+
   }
+
+ 
 
 
 
@@ -93,12 +117,9 @@ export class QuesionsPage {
 
   }
 
-  capturePhoto() {
-    //this.capture(0);
-    // this.capture(1);
-  }
 
   upload() {
+    this.presentLoadingDefault();
     let storageRef = firebase.storage().ref();
     // this.countryRef = firebase.database().ref('/countries');
     // Create a timestamp as filename
@@ -106,12 +127,26 @@ export class QuesionsPage {
 
     // Create a reference to 'images/todays-date.jpg'
     const imageRef = storageRef.child(`images/${filename}.jpg`);
+    
 
 
     imageRef.putString(this.captureDataUrl, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
 
       this.showSuccesfulUploadAlert();
     });
+  }
+
+
+  presentLoadingDefault() {
+    let loading = this.loadCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+   }, 3000);
   }
 
   showSuccesfulUploadAlert() {
@@ -139,19 +174,88 @@ export class QuesionsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuesionsPage');
     this.search = this.selectedModule;
+
+    this.ProfileProvider.getUserProfile().on('value', userProfileSnapshot => {
+
+      this.userProfile = userProfileSnapshot.val();
+
+      // console.log("userprofile" + this.userProfile.ITNo);
+      // console.log("firstName: " + this.userProfile.fname);
+      // console.log("lastName: " + this.userProfile.lname);
+      // console.log("email: " + this.userProfile.email);
+      // console.log("mobile: " + this.userProfile.mobile);
+      // console.log("feild: " + this.userProfile.feild);
+      // console.log("imageURL:"+this.userProfile.imageURL);
+     
+      if(this.imageURL==""){
+        this.imageURL="../assets/imgs/profile1.png";
+        console.log("no profile picture");
+      }
+      else{
+      this.imageURL=this.userProfile.imageURL;
+      }
+    });
+
+    this.initializeRef();
+  
   }
 
+
+  initializeRef() {
+
+    this.userid = firebase.auth().currentUser.email;
+    console.log("userID: " + this.userid);
+    this.userid = firebase.auth().currentUser.email;
+    this.getUserID = this.userid.slice(0, -19);
+    console.log("field is :" + this.getUserID);
+    // this.selectFeild();
+    if (this.getUserID == "en" || this.getUserID == "En" || this.getUserID == "EN" || this.getUserID == "eN") {
+      this.questionRef = firebase.database().ref('/Engineer');
+    }
+    else if (this.getUserID == "bm" || this.getUserID == "Bm" || this.getUserID == "BM" || this.getUserID == "bM") {
+      this.questionRef = firebase.database().ref('/Business');
+    }
+    else if (this.getUserID == "it" || this.getUserID == "It" || this.getUserID == "IT" || this.getUserID == "iT") {
+      this.questionRef = firebase.database().ref('/IT');
+    }
+    console.log("dtabase: " + this.questionRef);
+
+  }
+
+
   addQuestion() {
+
+    this.fname=this.userProfile.fname;
+
     if (this.title == "" || this.question == "") {
       this.presentTost();
     }
     else {
       try {
-        this.db.list('/Question').push({
+        this.userid=firebase.auth().currentUser.uid;
+
+       this.selectedQuestionRef= this.questionRef;
+        var key = this.questionRef.push({
           module: this.search,
           question: this.question,
-          title: this.title
-        })
+          title: this.title,
+          uid:this.userid,
+          URL:this.URL,
+          imageURL:this.imageURL,
+          postedTime:this.postedTime,
+          fname:this.fname
+        }).key;
+
+        console.log("key is: "+key);
+      
+        if(this.URL==""){
+            console.log("no url");
+        }
+     else{
+        this.upload();
+     }
+      
+       
         this.Alertsuccessfull();
         //this.close();
         this.viewCtrl.dismiss();
@@ -162,6 +266,7 @@ export class QuesionsPage {
   }
 
   addSearchPage() {
+    this.viewCtrl.dismiss();
     let openSearchModulePage = this.modelCtrl.create(SearchModulePage);
     openSearchModulePage.present();
   }

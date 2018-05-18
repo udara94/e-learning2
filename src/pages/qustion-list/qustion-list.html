@@ -8,15 +8,28 @@
 </ion-header>
 
 
-<ion-content padding  >
-<ion-card *ngFor="let question of countryList"  (click)="provideAnswers()">
+<ion-content padding style="background-color:#ff9900 ">
+<ion-card *ngFor="let question of test"  (click)="provideAnswers(question)" style="background-color:#f7ddb8 ">
   <ion-card-content>
-     <h3><b>{{question.module}}</b></h3>
-     <ion-badge color="ud"> <h4>{{question.title}}</h4></ion-badge>
-   <p hidden>{{question.question}}</p>
-  </ion-card-content>
+      <ion-item>
+          <ion-avatar item-start>
+            <img src="{{question.imageURL}}">
+          </ion-avatar>
+        
+     <h3><b>{{question?.module}}</b></h3>
+     <h3><b> fff{{question?.$key}}</b></h3>
+   
+     <ion-badge color="ud"> <h4>{{question?.title}}</h4></ion-badge>
+     <h3><b>{{question?.uid}}</b></h3>
+   <!-- <p hidden>{{question.question}}</p> -->
+          
+  </ion-item>
 
+  
+  </ion-card-content>
+  
   <ion-row>
+     
     <ion-col>
       <button ion-button icon-left clear small>
         <ion-icon name="thumbs-up"></ion-icon>
@@ -38,15 +51,6 @@
 
 </ion-card>
 
-<!--<ion-list  >
-    <ion-item *ngFor="let question of questions | async">
-      
-      <h2>
-        {{ question.question }}
-        </h2>
-    </ion-item>
-  </ion-list>-->
-
 
  <ion-fab right bottom>
     <button ion-fab mini (click)="addQuestions()" ><ion-icon name="add"></ion-icon></button>
@@ -54,24 +58,24 @@
 </ion-content>
 
 
-
+<!-- 
 <ion-footer>
   
    <ion-segment [(ngModel)]="selectedSegment"  style="background-color: #90CAF9" >
 
-    <ion-segment-button  (click)="questions()">
+    <ion-segment-button  (click)="ITquestions()" value="1">
       IT
     </ion-segment-button>
 
-    <ion-segment-button  (click)="questions()">
+    <ion-segment-button  (click)="ENquestions()" value="2" >
       EN
     </ion-segment-button>
 
-    <ion-segment-button  (click)="questions()">
+    <ion-segment-button  (click)="BMquestions()" value="3">
       BM
     </ion-segment-button>
 
     
   </ion-segment>
  
-</ion-footer>
+</ion-footer> -->

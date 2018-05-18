@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NavController, NavParams ,AlertController,ToastController} from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {LoginPage} from '../login/login';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import firebase from 'firebase';
+import { Title } from '@angular/platform-browser';
 /**
  * Generated class for the SignupPage page.
  *
@@ -19,13 +21,18 @@ export class SignupPage {
 
   signupData ={
     ITNo:'',
+    fname:'',
+    lname:'',
     email:'',
+    mobile:'',
     password:'',
     passwordRetyped:'',
-    username:'',
     feild:''
+
   };
 
+
+public imageURL:any ="";
  
 
   constructor(public navCtrl: NavController,
@@ -37,36 +44,20 @@ export class SignupPage {
 
 
     this.signupData.email = "";
-    this.signupData.feild = "";
     this.signupData.ITNo = "";
     this.signupData.password = "";
     this.signupData.passwordRetyped = "";
-    this.signupData.username = "";
+    this.signupData.fname = "";
+
+    
 
     this.signupData.email = this.navParams.get('email');
+   
   }
 
-  addUser() {
-    if (this.signupData.email == "" ||this.signupData.feild==""||  this.signupData.ITNo==""|| this.signupData.password==""||this.signupData.passwordRetyped==""|| this.signupData.username=="") 
-    {
-      this.presentTost();
-    }
-    else {
-      try {
-        this.db.list('/Users').push({
-          ITNo:this.signupData.email,
-          username: this.signupData.username,
-          feild: this.signupData.feild,
-          email: this.signupData.ITNo
-        })
-        //this.Alertsuccessfull();
-      
-      } catch{
-        //this.AlertNotSuccessfull();
-      }
-    }
-  }
 
+
+ 
   Alertsuccessfull() {
     let alertmsg = this.alertCtrl.create({
       title: 'Successful',
@@ -106,10 +97,27 @@ signup(){
   }
 
   this.afAuth.auth.createUserWithEmailAndPassword(this.signupData.email+'@domain.xta',this.signupData.password)
-  .then(auth=>{
+  //.then(auth=>{
+  //console.log(auth);
+  //this.Alertsuccessfull();
+  //this.addUser();
+ // })
+ .then( newUser => {
+  firebase.database().ref('/user').child(newUser.uid)
+  
+  .set({ 
+  
+    ITNo:this.signupData.email,
+    fname: this.signupData.fname,
+    email: this.signupData.ITNo,
+    imageURL:this.imageURL
+    
+   });
+})
+.then(auth=>{
   console.log(auth);
   this.Alertsuccessfull();
-  this.addUser();
+
   })
   .catch(err =>{
     let alert =this.alertCtrl.create({

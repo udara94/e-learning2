@@ -3,6 +3,7 @@ import { NavController, NavParams,ViewController,Content ,Scroll } from 'ionic-a
 import { SelectSearchable } from 'ionic-select-searchable';
 import firebase from 'firebase';
 import { QuesionsPage } from '../quesions/quesions';
+import {UpdatePostPage} from '../update-post/update-post';
 
 
 
@@ -13,7 +14,7 @@ import { QuesionsPage } from '../quesions/quesions';
 export class SearchModulePage {
 
   @ViewChild(Content) content: Content;
-  //@ViewChild(Scroll) scroll: Scroll;
+  
 
   public countryList: Array<any>;
   public loadedCountryList: Array<any>;
@@ -23,27 +24,38 @@ export class SearchModulePage {
   public search: any = "";
   public searchModule: any = "";
   showMe =false;
+  public count:number;
+  public toUpdatePage:number;
+  public userid:any;
+  public getUserID:any;
+  public moduleRef:any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController) {
 
-    this.countryRef = firebase.database().ref('/countries');
-
-    this.countryRef.on('value', countryList => {
-      let countries = [];
-      countryList.forEach(country => {
-        countries.push(country.val());
-        return false;
-      });
-
-      this.countryList = countries;
-      this.loadedCountryList = countries;
-    });
-
   }
 
+  initializeRef() {
 
+    this.userid = firebase.auth().currentUser.email;
+    console.log("userID: " + this.userid);
+    this.userid = firebase.auth().currentUser.email;
+    this.getUserID = this.userid.slice(0, -19);
+    console.log("field is :" + this.getUserID);
+    // this.selectFeild();
+    if (this.getUserID == "en" || this.getUserID == "En" || this.getUserID == "EN" || this.getUserID == "eN") {
+      this.moduleRef = firebase.database().ref('/enModule');
+    }
+    else if (this.getUserID == "bm" || this.getUserID == "Bm" || this.getUserID == "BM" || this.getUserID == "bM") {
+      this.moduleRef = firebase.database().ref('/bmModule');
+    }
+    else if (this.getUserID == "it" || this.getUserID == "It" || this.getUserID == "IT" || this.getUserID == "iT") {
+      this.moduleRef = firebase.database().ref('/itmodule');
+    }
+    console.log("dtabase: " + this.moduleRef);
+
+  }
 
   initializeItems(): void {
     this.countryList = this.loadedCountryList;
@@ -78,6 +90,23 @@ export class SearchModulePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchModulePage');
+    this.initializeRef();
+    this.countryRef = this.moduleRef;
+
+    this.countryRef.on('value', countryList => {
+      let countries = [];
+      countryList.forEach(country => {
+        countries.push(country.val());
+        return false;
+      });
+
+      this.countryList = countries;
+      this.loadedCountryList = countries;
+    });
+
+   
+
+  
   }
 
   getTheModule(module) {
@@ -90,20 +119,16 @@ export class SearchModulePage {
 
   passModule(selectedModule) {
     this.viewCtrl.dismiss();
-    this.navCtrl.push(QuesionsPage, { selectedModule });
+    
+    this.navCtrl.push(QuesionsPage, { selectedModule});
+    
   }
 
   scrollToTop() {
     this.content.scrollToTop();
   }
 
-/*  ngAfterViewInit() {
-    this.scroll.addScrollEventListener(this.onScroll);
-}
-onScroll(event) {
-  console.log(event);
-  this.showMe=true;
-}*/
+
 
   close() {
     this.navCtrl.pop();

@@ -7,20 +7,27 @@
       <button ion-button icon-only (click)="presentPopover($event)" style="float:right;">
         <ion-icon name="more"></ion-icon>
       </button>
-      
-  </ion-navbar>
 
+  </ion-navbar>
+ 
 </ion-header>
 
 <ion-content class="background-page">
-
+  <!-- <ion-input type="text" [(ngModel)]="model" placeholder="enter the module"></ion-input>
+  <button ion-button (click)="addQuestion()" full></button> -->
 </ion-content>
 <ion-footer>
 
-  <ion-segment [(ngModel)]="selectedSegment" style="background-color: #90CAF9">
+  <ion-segment [(ngModel)]="selectedSegment" style="background-color: #ff9900">
 
     <ion-segment-button value="channel" (click)="questions()">
       <ion-icon name="help-circle"></ion-icon>
+      <label>Question</label>
+    </ion-segment-button>
+
+    <ion-segment-button value="channel" (click)="myQuestions()">
+      <ion-icon name="ios-contact-outline"></ion-icon>
+      <label>My Question</label>
     </ion-segment-button>
 
 

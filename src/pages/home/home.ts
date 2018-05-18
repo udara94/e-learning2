@@ -9,7 +9,8 @@ import { HelpDeskPage } from '../help-desk/help-desk';
 import { PopoverController } from 'ionic-angular';
 import { PopOverPage } from '../pop-over/pop-over';
 import { ProfilePage } from '../profile/profile';
-
+import {MyQuestionPage} from '../my-question/my-question';
+import firebase from 'firebase';
 
 @Component({
   selector: 'page-home',
@@ -18,6 +19,8 @@ import { ProfilePage } from '../profile/profile';
 export class HomePage {
 
 
+public moduleRef:any;
+public model:any;
   constructor(public Popctrl: PopoverController,
     public navCtrl: NavController,
     private fire: AngularFireAuth) {
@@ -40,5 +43,23 @@ export class HomePage {
     this.navCtrl.push(QustionListPage);
   }
 
+  myQuestions(){
+    this.navCtrl.push(MyQuestionPage);
+  }
 
+  subjectlist(){
+    this.navCtrl.push(SubjectListPage);
+  }
+
+  addQuestion() {
+
+    this.moduleRef = firebase.database().ref('/bmModule');
+  
+         this.moduleRef.push({
+          module: this.model,
+      
+        });
+        console.log(this.model);
+
+      }
 }

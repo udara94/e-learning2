@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -9,25 +8,39 @@
 
 
 <ion-content padding>
+<div align="center">
+  <ion-avatar><ion-img class="profilepic"  width="150" height="200" src="{{imageURL}}"   ></ion-img></ion-avatar>
+  
+  <button ion-button class="profilebutton" *ngIf="buttonClicked" clear block  (click)="presentActionSheet()">
+    <ion-icon name="ios-camera-outline" style="zoom: 1.5;"></ion-icon>Edit
+  </button>
+</div>
+      <!-- <button class="button profilebutton icon ion-camera" (click)="upload()"></button>
+      <ion-img class="profilepic padding-bottom" src="{{imageURL}}" align="center"></ion-img>
+     -->
+  <ion-item>
+    <ion-label>username</ion-label>
+    <ion-input type="text" [(ngModel)]="displayUsername" disabled="true"></ion-input>
+  </ion-item>
 
-    <ion-img class="img" width="150" height="200" src="https://scontent.fcmb1-1.fna.fbcdn.net/v/t1.0-9/22141047_10203997905145462_628222371333337414_n.jpg?_nc_cat=0&_nc_eui2=v1%3AAeFdDyA8oJ70M1n4hjf8IC0FNuxotfxrAGRZNqnYTHhA_jgqfPaD2mLNgbWhDrZHZGg7Y2E17BcvoVLyKtQoJA8WEa2U6JOxgjfHQPL2f3XeFw&oh=ac71cde892a30d0377842480ebf1f1cf&oe=5B5AEED1"></ion-img>
-<ion-item>
-  <ion-label floting>First Name</ion-label>
-  <ion-input type="text" [(ngModel)]="username" ></ion-input>
-</ion-item>
+  <ion-item>
+    <ion-label floting>First Name</ion-label>
+    <ion-input type="text" [(ngModel)]="displayFirstName" disabled="{{isenable}}"></ion-input>
+  </ion-item>
 
-<ion-item>
-  <ion-label floting>Last Name</ion-label>
-  <ion-input type="text" ></ion-input>
-</ion-item>
+  
 
-<ion-item>
-  <ion-label floting>Email</ion-label>
-  <ion-input type="text" ></ion-input>
-</ion-item>
+  <ion-item>
+    <ion-label floting>Email</ion-label>
+    <ion-input type="text" [(ngModel)]="displayEmail" disabled="{{isenable}}"></ion-input>
+  </ion-item>
 
 
-<ion-input type="text" [(ngModel)]="sliceUser" ></ion-input>
-<p>Logged as: {{sliceUser}}</p>
-<button ion-button clear block (click)="editProfile()">Edit Profile</button>
+
+
+  
+  
+  <button ion-button clear block (click)="editProfileBtnClick();EditButtonClick()">Edit Profile</button>
+  <button ion-button clear block  *ngIf="buttonClicked" (click)="updateuser()">Save</button>
+  
 </ion-content>

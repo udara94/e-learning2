@@ -13,8 +13,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <br><br><br><br>
+<ion-content class="content" padding >
+  <!--<br><br><br><br>
   <ion-list>
     <ion-item>
       <ion-label floating>Registration Number</ion-label>
@@ -29,7 +29,34 @@
 
   <button ion-button full (click)="login()" [disabled]="!loginData.email|| !loginData.password" class="btnlogin ">Login</button>
  <button ion-button color="blue" (click)="signup()" class="chol button-positive  button-block " clear>create account</button><br>
- <button ion-button color="blue" (click)="forgot()" class="chol button-positive  button-block " clear>forgot password</button>
+ <button ion-button color="blue" (click)="forgot()" class="chol button-positive  button-block " clear>forgot password</button>-->
+
+ <ion-card>
+  <ion-card-header>
+    Login
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list no-lines>
+      <div class="spacer" style="height: 10px;"></div>
+      <ion-item>
+        <ion-input type="email" placeholder="Registration No" [(ngModel)]="loginData.email" class="placeholder-text"></ion-input>
+      </ion-item>
+      <div class="spacer" style="height: 5px;"></div>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" [(ngModel)]="loginData.password"></ion-input>
+      </ion-item>
+      <div class="spacer" style="height: 10px;"></div>
+      <button ion-button clear full color="light" (click)="forgot()" class="fogotbtn" >Forgot login details ? <b> Get Help</b></button>
+      <div class="spacer" style="height: 10px;"></div>
+      <button ion-button block round outline color="light" (click)="login()" class="loginbtn">Login</button>
+      <div class="spacer" style="height: 10px;"></div>
+      <p>OR</p>
+      <div class="spacer" style="height: 10px;"></div>
+      <button ion-button clear full color="light" (click)="signup()" class="signupbtn" >Don't have an account? Sign up</button>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
+
 
  
 </ion-content>

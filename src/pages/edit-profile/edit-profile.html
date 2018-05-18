@@ -8,11 +8,42 @@
 
   <ion-navbar>
     <ion-title>editProfile</ion-title>
+    <ion-buttons end (click)="close()">
+      <button ion-button>
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-img class="img"  width="150" height="200" src="{{imageURL}}" (click)="presentActionSheet()"></ion-img>
 
+
+  <ion-item>
+    <ion-label floting>First Name</ion-label>
+    <ion-input type="text" [(ngModel)]="displayFirstName" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floting>Last Name</ion-label>
+    <ion-input type="text" [(ngModel)]="displayLastName" ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label floting>Email</ion-label>
+    <ion-input type="text" [(ngModel)]="displayEmail" ></ion-input>
+  </ion-item>
+
+
+
+  <ion-item>
+    <ion-label floting>Mobile</ion-label>
+    <ion-input type="number" [(ngModel)]="displayMobileNo" ></ion-input>
+  </ion-item>
+
+  <button ion-button clear block (click)="save()">Save Changes</button>
 </ion-content>

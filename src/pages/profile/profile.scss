@@ -4,5 +4,21 @@ page-profile {
         margin-left: auto;
         margin-right: auto;
         width: 40%;
+        height: auto;
+        width: auto;
     }
+
+    .profilebutton {
+        z-index: 2;
+        position: absolute;
+        left: 15%;
+        top: 35%;
+        margin: auto;
+    }
+    .profilepic {
+       
+        
+    }
+  
+
 }

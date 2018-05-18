@@ -29,7 +29,10 @@ export class SubjectListPage {
 
     this.subject = this.navParams.get('subject');
 
-    this.subjects = db.list('/subjects');
+    this.db.list('/IT').subscribe(suject=>{
+      console.log("subject"+suject);
+    });
+    
 
 
     /* this.db.list("/subjects/").subscribe(_data =>{

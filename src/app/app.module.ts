@@ -18,13 +18,21 @@ import {ProfilePage} from '../pages/profile/profile';
 import {EditProfilePage} from '../pages/edit-profile/edit-profile';
 import {SettingsPage} from '../pages/settings/settings';
 import {SearchModulePage} from '../pages/search-module/search-module';
-//import {ForgotPasswordPage} from '../pages/forgot-password/forgot-password';
+import {ForgotPasswordPage} from '../pages/forgot-password/forgot-password';
+import {MyQuestionPage} from '../pages/my-question/my-question';
+import {UpdatePostPage} from '../pages/update-post/update-post';
+import {PostAnswerPage} from '../pages/post-answer/post-answer';
+
 
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {AngularFireDatabaseModule} from 'angularfire2/database-deprecated';
 import { SelectSearchableModule } from 'ionic-select-searchable';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { UserProvider } from '../providers/user/user';
+import { ProfileProvider } from '../providers/profile/profile';
+import { DataProvider } from '../providers/data/data';
+import { QuestionProvider } from '../providers/question/question';
 
 
 
@@ -53,7 +61,11 @@ var config={
     ProfilePage,
     EditProfilePage,
     SettingsPage,
-    SearchModulePage
+    SearchModulePage,
+    ForgotPasswordPage,
+    MyQuestionPage,
+    UpdatePostPage,
+    PostAnswerPage
   
   ],
   imports: [
@@ -79,14 +91,22 @@ var config={
     ProfilePage,
     EditProfilePage,
     SettingsPage,
-    SearchModulePage
+    SearchModulePage,
+    ForgotPasswordPage,
+    MyQuestionPage,
+    UpdatePostPage,
+    PostAnswerPage
    
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Camera
+    Camera,
+    UserProvider,
+    ProfileProvider,
+    DataProvider,
+    QuestionProvider
   ]
 })
 export class AppModule {}
