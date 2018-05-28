@@ -1,36 +1,81 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Home
+      Student Help Desk
     </ion-title>
     
-      <button ion-button icon-only (click)="presentPopover($event)" style="float:right;">
-        <ion-icon name="more"></ion-icon>
-      </button>
+    
 
   </ion-navbar>
  
 </ion-header>
 
-<ion-content class="background-page">
+<ion-content class="card2">
+
+    <!-- <ion-card class="card2"> -->
+      <br><br><br>
+        <ion-row>
+          <ion-col center >
+            <ion-card class="card1" (click)="viewQuestions()">
+              <div align="center">
+          <img width="110" height="120" src="https://d30y9cdsu7xlg0.cloudfront.net/png/29387-200.png"/>
+          <p><b>Questions</b></p>
+        </div>
+        </ion-card>
+          </ion-col>
+          <ion-col center>
+            <ion-card class="card1" (click)="viewMyQuestions()">
+                <div align="center">
+              <img width="110" height="120" src="https://png.icons8.com/metro/1600/question.png"/>
+              <p><b>My Questions</b></p>
+              </div>
+            </ion-card>
+          </ion-col>
+          
+        </ion-row>
+        <ion-row>
+            <ion-col center >
+                <ion-card class="card1" (click)="viewHelpDesk()">
+                    <div align="center">
+                <img width="110" height="120" src="https://d30y9cdsu7xlg0.cloudfront.net/png/1371243-200.png"/>
+                <p><b>Help Desk</b></p>
+                </div>
+                  </ion-card>
+            </ion-col>
+            <ion-col center >
+                <ion-card class="card1" (click)="viewMyRewards()">
+                    <div align="center">
+                <img width="110" height="120" src="http://pluspng.com/img-png/reward-png-black-and-white-reward-icon-512.png"/>
+                <p><b>My Rewards</b></p>
+                </div>
+                </ion-card>
+            </ion-col>
+           
+          </ion-row>
+      
+          <ion-row>
+              <ion-col center >
+                  <ion-card class="card1" (click)="viewMyDraft()">
+                      <div align="center">
+                  <img width="110" height="120" src="https://cdn2.iconfinder.com/data/icons/social-productivity-line-art-1/128/document-note-512.png"/>
+                  <p><b>My drafts</b></p>
+                  </div>
+                    </ion-card>
+              </ion-col>
+              <ion-col center >
+                  <ion-card class="card1" (click)="viewMyProfile()">
+                      <div align="center">
+                  <img width="110" height="120" src="https://d3uqp1raf0m8tp.cloudfront.net/assets/images/profile.png"/>
+                  <p><b>My Profile</b></p>
+                  </div>
+                  </ion-card>
+              </ion-col>
+             
+            </ion-row>
+      <!-- </ion-card> -->
   <!-- <ion-input type="text" [(ngModel)]="model" placeholder="enter the module"></ion-input>
-  <button ion-button (click)="addQuestion()" full></button> -->
+  <button ion-button (click)="addQuestion()" full>Add</button>
+  <button ion-button (click)="clear()" >clear</button>
+
+  -->
 </ion-content>
-<ion-footer>
-
-  <ion-segment [(ngModel)]="selectedSegment" style="background-color: #ff9900">
-
-    <ion-segment-button value="channel" (click)="questions()">
-      <ion-icon name="help-circle"></ion-icon>
-      <label>Question</label>
-    </ion-segment-button>
-
-    <ion-segment-button value="channel" (click)="myQuestions()">
-      <ion-icon name="ios-contact-outline"></ion-icon>
-      <label>My Question</label>
-    </ion-segment-button>
-
-
-  </ion-segment>
-
-</ion-footer>

@@ -37,8 +37,8 @@ export class ProfilePage {
   public displayMobileNo: any;
   public displayFeild: any;
   public imageURL: any = "";
-  isenable:any="true";
-  public buttonClicked:boolean=false;
+  isenable: any = "true";
+  public buttonClicked: boolean = false;
 
 
   //items: FirebaseListObservable<Item[]> = null;
@@ -69,7 +69,7 @@ export class ProfilePage {
   ionViewDidLoad() {
 
     this.setDetails();
-    this.isenable=true;
+    this.isenable = true;
 
   }
 
@@ -94,15 +94,15 @@ export class ProfilePage {
       this.displayUsername = this.userProfile.ITNo;
       this.displayFirstName = this.userProfile.fname;
       this.displayEmail = this.userProfile.email;
-      this.imageURL=this.userProfile.imageURL;
+      this.imageURL = this.userProfile.imageURL;
 
       if (this.imageURL == "") {
         this.imageURL = "https://firebasestorage.googleapis.com/v0/b/cpmad-83d5d.appspot.com/o/images%2FUser_icon_BLACK-01.png?alt=media&token=1e171c21-b6fd-405c-b409-97ad6b4b1e26"
       }
-      else {
-        this.imageURL = this.userProfile.imageURL
-      }
-      console.log("imageURL:" + this.userProfile.imageURL);
+      // else {
+      //   this.imageURL = this.userProfile.imageURL
+      // }
+      console.log("imageURL aaaaaaaaaaaaa:" + this.imageURL);
 
 
     });
@@ -111,151 +111,160 @@ export class ProfilePage {
   EditButtonClick() {
 
     this.buttonClicked = !this.buttonClicked;
-}
+    console.log("edit button click:"+this.buttonClicked)
+  }
 
-saveButtonClick(){
-  this.buttonClicked = !this.buttonClicked;
-}
+  saveButtonClick() {
+    this.buttonClicked=true;
+    this.buttonClicked = !this.buttonClicked;
+    console.log("save button click: "+this.buttonClicked)
+  }
 
-presentActionSheet() {
-  let actionSheet = this.actionSt.create({
-    title: 'Change profile picture',
-    buttons: [
-      {
-        text: 'Take new photo',
-        role: 'destructive',
-        handler: () => {
-          console.log('take a new photo');
-          this.capture();
-        }
-      },{
-        text: 'Select photo from gallery ',
-        handler: () => {
-          console.log('load from gallery');
-          this.loadFromLibrary();
-        }
-      },{
-          text:'Remove profile picture',
-          handler:()=>{
+  presentActionSheet() {
+    let actionSheet = this.actionSt.create({
+      title: 'Change profile picture',
+      buttons: [
+        {
+          text: 'Take new photo',
+          role: 'destructive',
+          handler: () => {
+            console.log('take a new photo');
+            this.capture();
+          }
+        }, {
+          text: 'Select photo from gallery ',
+          handler: () => {
+            console.log('load from gallery');
+            this.loadFromLibrary();
+          }
+        }, {
+          text: 'Remove profile picture',
+          handler: () => {
             console.log('remove picture clicked')
           }
-      },{
-        text: 'Cancel',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
         }
-      }
-    ]
-  });
-  actionSheet.present();
-}
+      ]
+    });
+    actionSheet.present();
+  }
 
-updateuser() {
+  updateuser() {
 
-  let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
-  });
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
 
-  loading.present();
+    loading.present();
 
-  this.userid=firebase.auth().currentUser.uid;
-  
-  this.user=firebase.database().ref('user/'+this.userid).update({
-    imageURL:this.imageURL,
-    fname:this.displayFirstName,
-    email:this.displayEmail,
-  })
-  .then(res=>{
-    
-    this.upload();
+    this.userid = firebase.auth().currentUser.uid;
+
+    this.user = firebase.database().ref('user/' + this.userid).update({
+      imageURL: this.imageURL,
+      fname: this.displayFirstName,
+      email: this.displayEmail,
+    })
+      .then(res => {
+        if (this.imageURL == "https://firebasestorage.googleapis.com/v0/b/cpmad-83d5d.appspot.com/o/images%2FUser_icon_BLACK-01.png?alt=media&token=1e171c21-b6fd-405c-b409-97ad6b4b1e26") {
+          console.log("profile picture didnit change")
+        }
+        else {
+
+          this.upload();
+        }
+        loading.dismiss();
+        console.log(res);
+        console.log("image url: " + this.imageURL);
+      })
+  }
+
+  capture() {
+    //setup camera options
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+
+    }
+
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
+      this.imageURL = this.captureDataUrl;
+    }, (err) => {
+      console.log("ERROR -> " + JSON.stringify(err));
+    });
+
+  }
+
+  loadFromLibrary() {
+    let options = {
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
+      this.imageURL = this.captureDataUrl;
+
+    }, (err) => {
+      console.log("ERROR -> " + JSON.stringify(err));
+    });
+
+  }
+
+  upload() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+
+    loading.present();
+    let storageRef = firebase.storage().ref();
+
+    // Create a timestamp as filename
+    const filename = Math.floor(Date.now() / 1000);
+
+    // Create a reference to 'images/todays-date.jpg'
+    const imageRef = storageRef.child(`images/${filename}.jpg`);
     loading.dismiss();
-    console.log(res);
-    console.log("image url: "+this.imageURL);
-  })
-}
+    imageRef.putString(this.imageURL, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
 
-capture() {
-  //setup camera options
-  const options: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+      this.showSuccesfulUploadAlert();
+    });
+
+    //this.updateuser();
 
   }
 
+  showSuccesfulUploadAlert() {
+    let alert = this.alertCtr.create({
+      title: 'Uploaded!',
+      subTitle: 'Picture is uploaded to Firebase',
+      buttons: ['OK']
+    });
+    alert.present();
 
-  this.camera.getPicture(options).then((imageData) => {
-    // imageData is either a base64 encoded string or a file URI
-    // If it's base64:
-    this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
-    this.imageURL = this.captureDataUrl;
-  }, (err) => {
-    console.log("ERROR -> " + JSON.stringify(err));
-  });
-
-}
-
-loadFromLibrary() {
-  let options = {
-    destinationType: this.camera.DestinationType.DATA_URL,
-    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
-  };
-  this.camera.getPicture(options).then((imageData) => {
-    // imageData is either a base64 encoded string or a file URI
-    // If it's base64:
-    this.captureDataUrl = 'data:image/jpeg;base64,' + imageData;
-    this.imageURL = this.captureDataUrl;
-    
-  }, (err) => {
-    console.log("ERROR -> " + JSON.stringify(err));
-  });
-
-}
-
-upload() {
-  let loading = this.loadingCtrl.create({
-    content: 'Please wait...'
-  });
-  
-  loading.present();
-  let storageRef = firebase.storage().ref();
-
-  // Create a timestamp as filename
-  const filename = Math.floor(Date.now() / 1000);
-
-  // Create a reference to 'images/todays-date.jpg'
-  const imageRef = storageRef.child(`images/${filename}.jpg`);
-  loading.dismiss();
-  imageRef.putString(this.imageURL, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
-
-    this.showSuccesfulUploadAlert();
-  });
-
-  //this.updateuser();
-
-}
-
-showSuccesfulUploadAlert() {
-  let alert = this.alertCtr.create({
-    title: 'Uploaded!',
-    subTitle: 'Picture is uploaded to Firebase',
-    buttons: ['OK']
-  });
-  alert.present();
-
-  // clear the previous photo data in the variable
-  this.captureDataUrl = "";
-}
-
-
-
-
-
-  editProfileBtnClick(){
-    this.isenable=false;
+    // clear the previous photo data in the variable
+    this.captureDataUrl = "";
   }
+
+
+
+
+
+  editProfileBtnClick() {
+    this.isenable = false;
+  }
+ 
 
   // showPrompt() {
   //   let prompt = this.alertCtr.create({

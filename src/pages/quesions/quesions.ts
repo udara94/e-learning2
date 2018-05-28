@@ -9,6 +9,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ProfileProvider } from '../../providers/profile/profile';
 
+
 @Component({
   selector: 'page-quesions',
   templateUrl: 'quesions.html',
@@ -40,8 +41,11 @@ export class QuesionsPage {
   public postedTime:any;
   public getUserID:any;
   public selectedQuestionRef:any;
-  
+  public draftRef:any;
+  public draft:any;
   public fname:any;
+  public number:number=1;
+  
 
 
   
@@ -55,27 +59,115 @@ export class QuesionsPage {
     private viewCtrl: ViewController,
     private camera: Camera,
     private loadCtrl: LoadingController,
-    public ProfileProvider: ProfileProvider) {
-
+    public ProfileProvider: ProfileProvider,
+  ) {
+    
  
-    this.selectedModule = navParams.get('selectedModule');
+  
 
+    
+
+  }
+
+  ionViewDidLoad() {
+    this.number=1
+    this.selectedModule = this.navParams.get('selectedModule');
+    this.draft = this.navParams.get('draft');
+    this.number=this.navParams.get('number');
+    console.log("draftddddddddddd:"+this.number);
 
     this.title = "";
     this.question = "";
     this.search = "";
 
-    this.alert = alert;
+   // this.alert = alert;
 
     var date = new Date(); // Or the date you'd like converted.
     this.myDate = date.getTime() 
    this.postedTime=this.myDate;
     console.log("time:"+date.getTime());
 
+    console.log('ionViewDidLoad QuesionsPage');
+    if(this.number==1){
+      console.log("number is aaaaaaaaaaaaaaaaaaaaaaa:"+this.number)
+      this.search = this.selectedModule;
+    }
+    else if(this.number==2){
+      console.log("number is aaaaaaaaaaaaaaaaaaaaaa:"+this.number)
+      this.search=this.draft.module;
+      this.title=this.draft.title;
+      this.question=this.draft.question;
+    }
     
+
+    this.ProfileProvider.getUserProfile().on('value', userProfileSnapshot => {
+
+      this.userProfile = userProfileSnapshot.val();
+
+   
+      this.imageURL=this.userProfile.imageURL;
+
+      if(this.imageURL==""){
+        this.imageURL="https://firebasestorage.googleapis.com/v0/b/cpmad-83d5d.appspot.com/o/images%2FUser_icon_BLACK-01.png?alt=media&token=1e171c21-b6fd-405c-b409-97ad6b4b1e26";
+        console.log("no profile picture");
+      }
+     
+
+      console.log("profile picture:"+this.imageURL);
+    });
+
+    this.initializeRef();
+    this.initializeDraftRef();
+                      
+    // this.questionRef=this.ref.initializeRef();
+    // this.draftRef=this.ref.initializeDraftRef();
+  
+  }
+
+
+  initializeRef() {
+
+    this.userid = firebase.auth().currentUser.email;
+    console.log("userID: " + this.userid);
+    this.userid = firebase.auth().currentUser.email;
+    this.getUserID = this.userid.slice(0, -19);
+    console.log("field is :" + this.getUserID);
+    // this.selectFeild();
+    if (this.getUserID == "en" || this.getUserID == "En" || this.getUserID == "EN" || this.getUserID == "eN") {
+      this.questionRef = firebase.database().ref('/Engineer');
+    }
+    else if (this.getUserID == "bm" || this.getUserID == "Bm" || this.getUserID == "BM" || this.getUserID == "bM") {
+      this.questionRef = firebase.database().ref('/Business');
+    }
+    else if (this.getUserID == "it" || this.getUserID == "It" || this.getUserID == "IT" || this.getUserID == "iT") {
+      this.questionRef = firebase.database().ref('/IT');
+    }
+    console.log("dtabase: " + this.questionRef);
+
+   
 
   }
 
+
+  initializeDraftRef(){
+    this.userid = firebase.auth().currentUser.email;
+    console.log("userID: " + this.userid);
+    this.userid = firebase.auth().currentUser.email;
+    this.getUserID = this.userid.slice(0, -19);
+    console.log("field is :" + this.getUserID);
+    // this.selectFeild();
+    if (this.getUserID == "en" || this.getUserID == "En" || this.getUserID == "EN" || this.getUserID == "eN") {
+      this.draftRef = firebase.database().ref('/Draft/EN');
+    }
+    else if (this.getUserID == "bm" || this.getUserID == "Bm" || this.getUserID == "BM" || this.getUserID == "bM") {
+      this.draftRef = firebase.database().ref('/Draft/BM');
+    }
+    else if (this.getUserID == "it" || this.getUserID == "It" || this.getUserID == "IT" || this.getUserID == "iT") {
+      this.draftRef = firebase.database().ref('/Draft/IT');
+    }
+    console.log("dtabase: " + this.draftRef);
+
+  }
  
 
 
@@ -119,7 +211,7 @@ export class QuesionsPage {
 
 
   upload() {
-    this.presentLoadingDefault();
+    
     let storageRef = firebase.storage().ref();
     // this.countryRef = firebase.database().ref('/countries');
     // Create a timestamp as filename
@@ -132,34 +224,34 @@ export class QuesionsPage {
 
     imageRef.putString(this.captureDataUrl, firebase.storage.StringFormat.DATA_URL).then((snapshot) => {
 
-      this.showSuccesfulUploadAlert();
+     // this.showSuccesfulUploadAlert();
     });
   }
 
 
-  presentLoadingDefault() {
-    let loading = this.loadCtrl.create({
-      content: 'Please wait...'
-    });
+  // presentLoadingDefault() {
+  //   let loading = this.loadCtrl.create({
+  //     content: 'Please wait...'
+  //   });
 
-    loading.present();
+  //   loading.present();
 
-    setTimeout(() => {
-      loading.dismiss();
-   }, 3000);
-  }
+  //   setTimeout(() => {
+  //     loading.dismiss();
+  //  }, 3000);
+  // }
 
-  showSuccesfulUploadAlert() {
-    let alert = this.alert.create({
-      title: 'Uploaded!',
-      subTitle: 'Picture is uploaded to Firebase',
-      buttons: ['OK']
-    });
-    alert.present();
+  // showSuccesfulUploadAlert() {
+  //   let alert = this.alert.create({
+  //     title: 'Uploaded!',
+  //     subTitle: 'Picture is uploaded to Firebase',
+  //     buttons: ['OK']
+  //   });
+  //   alert.present();
 
-    // clear the previous photo data in the variable
-    this.captureDataUrl = "";
-  }
+  //   // clear the previous photo data in the variable
+  //   this.captureDataUrl = "";
+  // }
 
   protected adjustTextarea(event: any): void {
     let textarea: any = event.target;
@@ -167,59 +259,6 @@ export class QuesionsPage {
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
     return;
-  }
-
-
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad QuesionsPage');
-    this.search = this.selectedModule;
-
-    this.ProfileProvider.getUserProfile().on('value', userProfileSnapshot => {
-
-      this.userProfile = userProfileSnapshot.val();
-
-      // console.log("userprofile" + this.userProfile.ITNo);
-      // console.log("firstName: " + this.userProfile.fname);
-      // console.log("lastName: " + this.userProfile.lname);
-      // console.log("email: " + this.userProfile.email);
-      // console.log("mobile: " + this.userProfile.mobile);
-      // console.log("feild: " + this.userProfile.feild);
-      // console.log("imageURL:"+this.userProfile.imageURL);
-     
-      if(this.imageURL==""){
-        this.imageURL="../assets/imgs/profile1.png";
-        console.log("no profile picture");
-      }
-      else{
-      this.imageURL=this.userProfile.imageURL;
-      }
-    });
-
-    this.initializeRef();
-  
-  }
-
-
-  initializeRef() {
-
-    this.userid = firebase.auth().currentUser.email;
-    console.log("userID: " + this.userid);
-    this.userid = firebase.auth().currentUser.email;
-    this.getUserID = this.userid.slice(0, -19);
-    console.log("field is :" + this.getUserID);
-    // this.selectFeild();
-    if (this.getUserID == "en" || this.getUserID == "En" || this.getUserID == "EN" || this.getUserID == "eN") {
-      this.questionRef = firebase.database().ref('/Engineer');
-    }
-    else if (this.getUserID == "bm" || this.getUserID == "Bm" || this.getUserID == "BM" || this.getUserID == "bM") {
-      this.questionRef = firebase.database().ref('/Business');
-    }
-    else if (this.getUserID == "it" || this.getUserID == "It" || this.getUserID == "IT" || this.getUserID == "iT") {
-      this.questionRef = firebase.database().ref('/IT');
-    }
-    console.log("dtabase: " + this.questionRef);
-
   }
 
 
@@ -243,7 +282,8 @@ export class QuesionsPage {
           URL:this.URL,
           imageURL:this.imageURL,
           postedTime:this.postedTime,
-          fname:this.fname
+          fname:this.fname,
+          
         }).key;
 
         console.log("key is: "+key);
@@ -264,6 +304,26 @@ export class QuesionsPage {
       }
     }
   }
+
+addDraft(){
+    this.userid=firebase.auth().currentUser.uid;
+
+     //this.selectedQuestionRef= this.questionRef;
+     this.draftRef.push({
+        module: this.search,
+        question: this.question,
+        title: this.title,
+        uid:this.userid,
+   
+      });
+      let draftToast = this.toastCtrl.create({
+        message: 'Question Saved as Draft',
+        duration: 3000
+      });
+      draftToast.present();
+  
+}
+
 
   addSearchPage() {
     this.viewCtrl.dismiss();
@@ -315,7 +375,20 @@ export class QuesionsPage {
   }
 
   close() {
-    this.navCtrl.pop();
+    if(this.number==1){
+      console.log("what is the number"+this.number);
+      this.addDraft();
+      this.navCtrl.pop();
+      
+    }
+    else if(this.number==2){
+      this.navCtrl.pop();
+    }
+
+    else{
+      this.navCtrl.pop();
+    }
+    
   }
 
 

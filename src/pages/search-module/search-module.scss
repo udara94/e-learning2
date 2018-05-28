@@ -1,3 +1,30 @@
 page-search-module {
+    [text-color="my-custom-color"] {
+        color: #622569;
+    }
+  
 
+    .fabBtn{
+        width: 30px;
+        height: 30px;
+        
+        
+        /* Styles */
+       background: linear-gradient(rgba(21, 220, 255, 0.5), rgba(23, 88, 228, 0.7));    
+       
+       
+        box-shadow: 
+            inset 2 1px rgba(32, 8, 8, 0.4), 
+            0 2px 2px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+    
+        /* Font styles */
+        color: white;
+    //     text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    //     font-size: 14px;
+    //    font-weight: bold;
+    //     font-family: 'Raleway', 'Lato', Arial, sans-serif;
+       
+    }
 }

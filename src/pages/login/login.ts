@@ -4,6 +4,7 @@ import {SignupPage} from '../signup/signup';
 import {ForgotPasswordPage} from '../forgot-password/forgot-password';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {HomePage} from '../home/home'
+import {TabsPage} from '../tabs/tabs';
 /**
  * Generated class for the LoginPage page.
  *
@@ -39,7 +40,7 @@ export class LoginPage {
     this.afAuth.auth.signInWithEmailAndPassword(this.loginData.email+'@domain.xta',this.loginData.password)
     .then(auth =>{
 
-       this.navCtrl.setRoot(HomePage);
+       this.navCtrl.setRoot(TabsPage);
     })
     
     .catch(err =>{

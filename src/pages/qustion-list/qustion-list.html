@@ -1,16 +1,60 @@
 
-<ion-header>
+<ion-header  >
 
-  <ion-navbar >
-    <ion-title>Qustion List</ion-title>
-  </ion-navbar>
-  <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="selectedModule"></ion-searchbar>
+    <ion-navbar>
+        <ion-title >
+            <span text-color="my-custom-color">Questions</span>
+         </ion-title>
+    </ion-navbar>
+    <ion-searchbar  [(ngModel)]="terms" class="search" ></ion-searchbar>
+
+   
+ 
+  <!-- <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="selectedModule"></ion-searchbar> -->
+  
+
 </ion-header>
 
 
-<ion-content padding style="background-color:#ff9900 ">
-<ion-card *ngFor="let question of test"  (click)="provideAnswers(question)" style="background-color:#f7ddb8 ">
-  <ion-card-content>
+<ion-content padding (ionScroll)="onScroll($event)"  >
+
+
+
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing..." >
+           
+        </ion-refresher-content>
+      </ion-refresher>
+
+
+        <ion-list >
+
+          
+            <ion-item (click)="provideAnswers(question)" *ngFor="let question of test | search : terms | sort: {property: column, order: order} "> 
+              <ion-avatar item-start>
+                <img src="{{question.imageURL}}">
+              </ion-avatar>
+
+        <div><b> <p  text-wrap>{{question?.title}}</p></b></div> 
+            
+         <div><i><p>{{question?.module}}</p></i></div>
+       
+         <p hidden>{{question.question}}</p>  
+            </ion-item>
+      
+        
+           </ion-list> 
+
+           <ion-fab center bottom *ngIf="showMe" (click)="scroll()" class="myfab">
+              <button ion-fab color="light" class="fabBtn">
+                <ion-icon name="ios-arrow-up-outline"></ion-icon>
+              </button>
+            </ion-fab>
+<!-- <ion-card *ngFor="let question of test"   style="background-color:#f7ddb8 ">
+  <ion-card-content (click)="provideAnswers(question)">
       <ion-item>
           <ion-avatar item-start>
             <img src="{{question.imageURL}}">
@@ -21,14 +65,16 @@
    
      <ion-badge color="ud"> <h4>{{question?.title}}</h4></ion-badge>
      <h3><b>{{question?.uid}}</b></h3>
-   <!-- <p hidden>{{question.question}}</p> -->
+    <p hidden>{{question.question}}</p> 
           
-  </ion-item>
+   </ion-item>
 
   
+   </ion-card-content> 
+   <ion-card-content *ngIf="buttonClicked">
+    <ion-input class="comment" placeholder="comment here"></ion-input>
   </ion-card-content>
-  
-  <ion-row>
+   <ion-row>
      
     <ion-col>
       <button ion-button icon-left clear small>
@@ -37,9 +83,9 @@
       </button>
     </ion-col>
     <ion-col>
-      <button ion-button icon-left clear small>
+      <button  (click)="addcomments(question)" ion-button icon-left clear small>
         <ion-icon name="text"></ion-icon>
-        <div>4 Comments</div>
+        <div>4 Comments{{question?.$key.answer}}</div>
       </button>
     </ion-col>
     <ion-col center text-center>
@@ -47,9 +93,10 @@
  
       </ion-note>
     </ion-col>
-  </ion-row>
+  </ion-row> 
 
-</ion-card>
+
+</ion-card>  -->
 
 
  <ion-fab right bottom>
@@ -58,24 +105,4 @@
 </ion-content>
 
 
-<!-- 
-<ion-footer>
-  
-   <ion-segment [(ngModel)]="selectedSegment"  style="background-color: #90CAF9" >
 
-    <ion-segment-button  (click)="ITquestions()" value="1">
-      IT
-    </ion-segment-button>
-
-    <ion-segment-button  (click)="ENquestions()" value="2" >
-      EN
-    </ion-segment-button>
-
-    <ion-segment-button  (click)="BMquestions()" value="3">
-      BM
-    </ion-segment-button>
-
-    
-  </ion-segment>
- 
-</ion-footer> -->

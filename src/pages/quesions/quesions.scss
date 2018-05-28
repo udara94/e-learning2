@@ -5,8 +5,8 @@ page-quesions {
 
 .textarea{
     width: calc(100% - 10px);
-    border: 0;
-    border-radius: 0;
+    //border: 0;
+    //border-radius: 0;
     background: transparent;
     max-width: 100%; width: 100%; height: 40vh;
     background-color: #ffffcc;
@@ -16,14 +16,33 @@ page-quesions {
     border-radius: 10px;
     padding: 4px;
 
+
+    width: 100%;
+     
+     
+     /* Styles */
+     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(163, 192, 253, 0.7));    
+     
+     
+     box-shadow: 
+         inset 0 1px rgba(32, 8, 8, 0.4), 
+         0 2px 1px rgba(0,0,0,0.1);
+    // cursor: pointer;
+     transition: all 0.3s ease-out;
+ 
+     /* Font styles */
+    // color: white;
+    // text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+     font-size: 14px;
+   // font-weight: bold;
+     font-family: 'Raleway', 'Lato', Arial, sans-serif;
+
 }
 .sendDiv{
     float: right;
 }
 
-.navbar{
-    background-color: #ff9900;	
-}
+
 
 .navbarBody{
     height: 2px;
@@ -33,6 +52,73 @@ page-quesions {
     border-radius: 10px;
 
 }
+
+[text-color="my-custom-color"] {
+    color: #622569;
+}
+
+.btn{
+    width: 100%;
+    padding: 8px 5px;
+    
+    /* Styles */
+    background: linear-gradient(rgba(21, 220, 255, 0.5), rgba(23, 88, 228, 0.7));    
+   
+   
+    box-shadow: 
+    	inset 0 1px rgba(32, 8, 8, 0.4), 
+    	0 2px 1px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+
+    /* Font styles */
+    color: white;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    font-size: 14px;
+   font-weight: bold;
+    font-family: 'Raleway', 'Lato', Arial, sans-serif;
+     
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+}
+ .btn:hover {
+    box-shadow: 
+        inset 0 1px rgba(64, 25, 206, 0.2), 
+        inset 0 20px 30px rgba(165, 59, 126, 0.5);
+}
+.icon1{
+    zoom:2.0;
+ 
+   color:rgba(165, 59, 126, 0.5);
+
+ 
+}
+.footer{
+    width: 100%;
+   // padding: 8px 5px;
+    
+    
+    /* Styles */
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(185, 206, 253, 0.7));    
+   
+    
+    box-shadow: 
+    	inset 0 1px rgba(32, 8, 8, 0.4), 
+    	0 2px 1px rgba(0,0,0,0.1);
+   // cursor: pointer;
+    transition: all 0.3s ease-out;
+
+    /* Font styles */
+    color: white;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    font-size: 14px;
+   font-weight: bold;
+    font-family: 'Raleway', 'Lato', Arial, sans-serif;
+     
+ 
+
+}
+
 
 
 

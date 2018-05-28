@@ -3,6 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {LoginPage} from '../login/login';
 import {ProfilePage} from '../profile/profile'
+import {HelpDeskPage} from '../help-desk/help-desk';
+import {MyDraftPage} from '../my-draft/my-draft';
+import {RewardsPage} from '../rewards/rewards';
 
 /**
  * Generated class for the SettingsPage page.
@@ -35,5 +38,15 @@ export class SettingsPage {
   viewProfile(){
     this.navCtrl.push(ProfilePage);
   }
+  viewHelpDesk(){
+    this.navCtrl.push(HelpDeskPage);
+  }
+  viewMyDraft(){
+    this.navCtrl.push(MyDraftPage);
+  }
+  viewMyRewards(){
+    this.navCtrl.push(RewardsPage);
+  }
+
 
 }

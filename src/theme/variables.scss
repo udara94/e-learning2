@@ -42,10 +42,25 @@ $colors: (
   ud:         #00FA9A,
   theam:      #ff9900	,
   base:       #523209,
+  toolbar:    #622569,
 );
 
 $text-input-placeholder-color:(#000);
 
+
+$toolbar-md-title-text-color: #622569;
+$toolbar-ios-title-text-color: #622569;
+$toolbar-wp-title-text-color: #622569;
+
+.toolbar-background {
+  background-image: url('../assets/imgs/background.jpg')!important;
+  background-repeat: no-repeat;
+    background-position: center;
+  // background-size: cover;
+  // background-position: center center;
+  // background-repeat: no-repeat;
+}
+//$toolbar-background-image: url('../assets/imgs/background.jpg');
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

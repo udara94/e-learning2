@@ -26,27 +26,27 @@
 
 <ion-content padding >
   
- 
+ <!-- <ion-list *ngFor="let updatePost of updateAnswer"> -->
 
   <ion-item>
       <ion-label floating>Question Title</ion-label>
-    <ion-input type="text"  [(ngModel)]="title"></ion-input>
+    <ion-input type="text"  [(ngModel)]="data.title"></ion-input>
   </ion-item>
 <br><br>
-<ion-item>
+<ion-item >
   <ion-navbar color="theam" class="navbarBody">
     <ion-buttons end>
       <button ion-button (click)="capture()">
-        <ion-icon name="ios-camera" style="zoom:2.0;"></ion-icon>
+        <ion-icon name="ios-camera" class="icon1" ></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons end>
       <button ion-button (click)="loadFromLibrary()">
-        <ion-icon name="ios-images" style="zoom:2.0;"></ion-icon>
+        <ion-icon name="ios-images" class="icon1"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-  <textarea class="textarea" placeholder="Enter your question here" (input)="adjustTextarea($event);" [(ngModel)]="question"
+  <textarea class="textarea" placeholder="Enter your question here" (input)="adjustTextarea($event);" [(ngModel)]="data.question"
     required autosize> </textarea>
     
 </ion-item>
@@ -57,13 +57,13 @@
 </ion-item>
 
 <button ion-button (click)="enterModule()" >Add</button>-->
-
+<!-- </ion-list> -->
 
 </ion-content>
 
 <ion-footer>
 <div class="sendDiv">
-  <button ion-button (click)="updateQuestion(title)" color="theam">Update&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
+  <button ion-button (click)="updateQuestion(data)"class="btn">Update&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
 
 </div>
 </ion-footer>

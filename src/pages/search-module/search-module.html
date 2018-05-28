@@ -1,41 +1,55 @@
 
 <ion-header>
 
-  <ion-navbar color="theam">
-    <ion-title>searchModule</ion-title>
+  <ion-navbar primary *navbar>
+      <ion-title >
+          <span text-color="my-custom-color">Search Module</span>
+       </ion-title>
     <ion-buttons end (click)="close()">
       <button ion-button>
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
 
-    <ion-buttons end (click)="scrollToTop()">
+    <!-- <ion-buttons end (click)="scrollToTop()">
       <button ion-button>
         <ion-icon name="arrow-dropup"></ion-icon>
       </button>
-    </ion-buttons>
-
+    </ion-buttons> -->
+   
   </ion-navbar>
-  <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="selectedModule"></ion-searchbar>
+  <ion-searchbar [(ngModel)]="terms"></ion-searchbar> 
+<!-- <button ion-button type="button" (click)="sort()">Sort</button> -->
+  <!-- <ion-searchbar (ionInput)="getItems($event)" [(ngModel)]="selectedModule"></ion-searchbar> -->
 </ion-header>
 
 
-<ion-content padding class="no-scroll">
+<ion-content (ionScroll)="onScroll($event)">
 
 
   <ion-scroll></ion-scroll>
-  <ion-list>
+  <!-- <ion-list>
     <ion-item *ngFor="let module of countryList" (click)="getTheModule(module.module);passModule(selectedModule)">
+      <h2>
+        <b> {{ module.module }}</b>
+      </h2>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-list>
+    <ion-item *ngFor="let module of countryList  | search : terms | sort: {property: column, order: order} " (click)="getTheModule(module.module);passModule(selectedModule)">
       <h2>
         <b> {{ module.module }}</b>
       </h2>
     </ion-item>
   </ion-list>
 
-  <ion-fab center bottom *ngIf="showMe">
-    <button ion-fab color="light">
-      <ion-icon name="arrow-dropleft"></ion-icon>
+  <ion-fab center bottom *ngIf="showMe" (click)="scroll()" class="myfab">
+    <button ion-fab color="light" class="fabBtn">
+      <ion-icon name="ios-arrow-up-outline"></ion-icon>
     </button>
   </ion-fab>
 
 </ion-content>
+
+

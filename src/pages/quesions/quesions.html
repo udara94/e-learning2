@@ -1,7 +1,10 @@
 <ion-header  >
-
-  <ion-navbar class="navbar" color="theam" >
-    <ion-title>Ask Quesions</ion-title>
+  
+  <ion-navbar class="navbar" >
+    
+    <ion-title >
+        <span text-color="my-custom-color">Ask Quesions</span>
+     </ion-title>
     <ion-buttons end (click)="close()">
       <button ion-button>
         <ion-icon name="close"></ion-icon>
@@ -33,19 +36,19 @@
 
   <ion-item>
       <ion-label floating>Question Title</ion-label>
-    <ion-input type="text"  [(ngModel)]="title"></ion-input>
+    <ion-input type="text"   [(ngModel)]="title"></ion-input>
   </ion-item>
 <br><br>
 <ion-item>
   <ion-navbar color="theam" class="navbarBody">
     <ion-buttons end>
       <button ion-button (click)="capture()">
-        <ion-icon name="ios-camera" style="zoom:2.0;"></ion-icon>
+        <ion-icon name="ios-camera" class="icon1" ></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons end>
       <button ion-button (click)="loadFromLibrary()">
-        <ion-icon name="ios-images" style="zoom:2.0;"></ion-icon>
+        <ion-icon name="ios-images" class="icon1"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -60,9 +63,9 @@
 
 </ion-content>
 
-<ion-footer>
+<ion-footer class="footer">
 <div class="sendDiv">
-  <button ion-button (click)="addQuestion()" color="theam">Post&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
+  <button ion-button (click)="addQuestion()" class="btn">Post&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
 
 </div>
 </ion-footer>

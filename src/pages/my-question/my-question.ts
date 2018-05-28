@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController,ModalController } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController,Content, NavParams, AlertController, ModalController, LoadingController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import firebase from 'firebase';
-import {UpdatePostPage} from '../update-post/update-post'
-
+import { UpdatePostPage } from '../update-post/update-post'
+import {AnswersPage} from '../answers/answers';
 
 @Component({
   selector: 'page-my-question',
@@ -11,64 +11,146 @@ import {UpdatePostPage} from '../update-post/update-post'
 })
 export class MyQuestionPage {
 
-user:string;
-questionList:any;
-public module:any;
-public title:any;
-public question:any;
-qu: FirebaseListObservable<any>;
-arrData=[];
-userid:any;
-getUserID:any;
-quizRef:any;
-public toUpdatePage:number;
+  @ViewChild(Content) content: Content;
 
+  user: string;
+  questionList: any;
+  public module: any;
+  public title: any;
+  public question: any;
+  qu: FirebaseListObservable<any>;
+  arrData = [];
+  userid: any;
+  getUserID: any;
+  quizRef: any;
+  public myId: any;
+  public toUpdatePage: number;
+  public MyQuestio_arr: Array<any> = [];
+  public myQuestion: any;
+  showMe =false;
+  public number:number=2;
 
   constructor(public navCtrl: NavController,
-     public navParams: NavParams,
-    public af:AngularFireDatabase,
-    public alert:AlertController,
-  public db:AngularFireDatabase,
-  public modelCtrl:ModalController) {
+    public navParams: NavParams,
+    public af: AngularFireDatabase,
+    public alert: AlertController,
+    public db: AngularFireDatabase,
+    public modelCtrl: ModalController,
+    public loadingCtrl: LoadingController) {
 
-      /*this.db.list('/Question/').subscribe( _data=>{
-        this.arrData=_data;
-      })*/
-      this.getMyQuestion();
-      this.toUpdatePage=1;
- 
+
+    // this.getMyQuestion();
+
+
+
   }
 
-  getMyQuestion(){
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad MyQuestionPage');
 
-    firebase.auth().onAuthStateChanged(user=>{
+    this.initializeRef();
+    this.getMyQuestion();
 
-      if(user){
+  }
 
-        this.user=user.uid;
-        this.initializeRef();
-        
-        var query=this.quizRef.orderByChild('uid').equalTo(this.user);
-        query.once('value' ,questionListSnapshot =>{
-
-          this.questionList =[];
-       
-          questionListSnapshot.forEach(snapshot=>{
-            this.questionList.push({
-
-            module:snapshot.val().module,
-            title:snapshot.val().title,
-            question:snapshot.val().question
-
-            })
-            console.log("question list:"+this.questionList)
-
-            return false;
-          })
-        })
-      }
+  getMyQuestion() {
+    this.qu = this.db.list(this.quizRef);
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
     });
+    loading.present();
+    this.myId = firebase.auth().currentUser.uid;
+
+
+    this.qu.subscribe(events => {
+
+      let event = events;
+
+      this.MyQuestio_arr = event;
+
+      console.log("key is:" + events.$key);
+
+      let myevent = events
+      loading.dismiss();
+      this.MyQuestio_arr = myevent.filter(event => {
+        console.log("UID" + event.uid);
+
+        return event.uid == this.myId;
+
+
+      });
+
+    })
   }
+  viewAnswer(myQuestion,number){
+    number=this.number
+    this.navCtrl.push(AnswersPage,{myQuestion,number})
+
+  }
+  scrollToTop() {
+    if(this.content.scrollTop==0){
+      this.showMe=false;
+    }
+    else if(this.content.scrollTop>50){
+      this.showMe=true;
+    }
+
+
+  }
+
+  scroll(){
+    this.content.scrollToTop();
+  }
+
+  onScroll(event){
+console.log("fffff:"+event);
+this.scrollToTop();
+
+  }
+  
+  // getMyQuestion(){
+
+  //   console.log("getting my question");
+  //   firebase.auth().onAuthStateChanged(user=>{
+
+  //     if(user){
+
+  //       let loading = this.loadingCtrl.create({
+  //         content: 'Please wait...'
+  //       });
+
+  //       loading.present();
+
+  //       this.user=user.uid;
+
+  //       this.initializeRef();
+
+  //       var query=this.quizRef.orderByChild('uid').equalTo(this.user);
+  //       query.once('value' ,questionListSnapshot =>{
+
+  //         this.questionList =[];
+  //         loading.dismiss();
+  //         questionListSnapshot.forEach(snapshot=>{
+
+
+  //           this.questionList.push({
+
+  //           module:snapshot.val().module,
+  //           title:snapshot.val().title,
+  //           question:snapshot.val().question,
+  //           key:snapshot.val().$key
+
+  //           })
+
+  //           console.log("question list:"+this.questionList)
+
+  //           return false;
+  //         })
+
+  //       })
+  //     }
+  //   });
+  // }
 
   initializeRef() {
 
@@ -87,65 +169,37 @@ public toUpdatePage:number;
       this.quizRef = firebase.database().ref('/IT');
     }
     console.log("dtabase: " + this.quizRef);
-  
+
   }
 
-  updateQuestion(myQuestion,toUpdatePage) {
-    let openSearchModulePage = this.modelCtrl.create(UpdatePostPage,{data:myQuestion,toUpdatePage});
+  updateQuestion(myQuestion) {
+
+    let openSearchModulePage = this.modelCtrl.create(UpdatePostPage, { data: myQuestion });
     openSearchModulePage.present();
   }
 
-  
-  /*deleteNurse(bookID):void{
-    let prompt = this.alert.create({
-      title: 'Delete contact',
-      
-      buttons: [
-      {
-        
-        text: "Cancel",
-        handler: data =>{
-        console.log("Cancle clicked");
-        }
-        
-      },{
-        
-        text: "Delete contact",
-        handler: data =>{
-          
-        this.qu.remove(bookID);
-        }
-        
-      }
-     ]
-    });
-    prompt.present();
-  }*/
-  deleteQuestion(question){
-    var query= this.quizRef.orderByChild('title').equalTo(question);
-    query.once('value', questionSnapshot=>{
-      
-      this.questionList=[];
-      questionSnapshot.forEach(snapshot=>{
+
+
+  deleteQuestion(myQuestion) {
+    var query = this.quizRef.orderByKey().equalTo(myQuestion);
+    console.log("testingdddddd"+query)
+    query.once('value', questionSnapshot => {
+
+      this.questionList = [];
+      questionSnapshot.forEach(snapshot => {
         snapshot.ref.remove();
         console.log("question deleted");
         return false;
       });
-      this.getMyQuestion();
+      // this.getMyQuestion();
 
     });
-   
+
   }
 
 
-  onclick(){
-    console.log("module"+this.module);
-    console.log("title"+this.title);
-    console.log("question"+this.question);
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MyQuestionPage');
-  }
+
+
 
 }

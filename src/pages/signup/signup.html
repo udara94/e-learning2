@@ -6,17 +6,80 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <!-- <ion-navbar color="primary">
     <ion-title>signup</ion-title>
-  </ion-navbar>
+  </ion-navbar> -->
 
 </ion-header>
 
-<ion-content padding class="content">
-  <ion-card>
-  
-    <ion-card-content class="card-content">
-      <ion-list class="ion-list" >
+<ion-content padding class="background-image">
+
+    <ion-slides effect="flip">
+        <ion-slide>
+            <form class="form-4" align="center">
+                <!-- <div align="center">
+                      <img width="80" height="100"  src="../assets/imgs/sliit.png"/>
+                    </div>
+                        -->
+                        <p>
+                            <label for="login">Register Number</label>
+                            <input type="text" name="login" placeholder="Register Number"  [(ngModel)]="signupData.email" required>
+                        </p>
+    
+                        <p>
+                            <label for="login">First Name</label>
+                            <input type="text" name="login" placeholder="First Name"  [(ngModel)]="signupData.fname" required>
+                        </p>
+    
+                        <p>
+                            <label for="login">E-mail</label>
+                            <input type="text" name="login" placeholder="E-mail"  [(ngModel)]="signupData.ITNo" required>
+                        </p>
+                        <p>
+                            <label for="password" >Password</label>
+                            <input type="password" name='password' [(ngModel)]="signupData.password" placeholder="Password" required> 
+                        </p>
+                        <p>
+                            <label for="password" >Password</label>
+                            <input type="password" name='password' [(ngModel)]="signupData.passwordRetyped" placeholder="Confirm Password" required> 
+                        </p>
+                    
+                        <p>
+                            <input type="submit" name="submit" value="Next"  (click)="nextSlide();" >
+                           
+                          </p> 
+
+                      
+                       <p> <button ion-button clear  (click)="back()">Back</button></p>
+                      
+                    </form>
+        </ion-slide>
+        <ion-slide>
+          <form class="form-4">
+          <h1>Change Profile Picture</h1>
+          <div align="center" class="profile-image"  (click)="presentActionSheet()">
+          <img  class="img" src="{{imageURL}}"/>
+          </div>
+          <br>
+          <button ion-button class="btn" *ngIf="showMe" (click)="backtoSlide()">Back</button>
+          <button ion-button class="btn" *ngIf="showMe" (click)="skip()">{{value}}</button>
+          <!-- <input type="submit" name="submit" clear class="btn" value="Back" (click)="backtoSlide()" >
+          <input type="submit" name="submit" clear class="btn" value="{{value}}" (click)="skip()" > -->
+       
+        </form>
+        </ion-slide>
+        <ion-slide>
+          <form class="form-4">
+              <h1>Final Step</h1>
+              <button  ion-button class="imgbtn" (click)="signup()">Register</button>
+              <br>
+              <!-- <input type="submit" name="submit" value="Back" (click)="backtoSlide()" > -->
+              <button ion-button class="btn2" *ngIf="backIf" (click)="backtoSlide()">Back</button>
+          </form>
+        </ion-slide>
+      </ion-slides>
+       
+      <!-- <ion-list class="ion-list" >
   
         <ion-item class="item1" >
           <ion-label floating>Registration Number</ion-label>
@@ -48,8 +111,6 @@
           <ion-input type="password" [(ngModel)]="signupData.passwordRetyped"></ion-input>
         </ion-item>
       </ion-list>
-      <button full block round outline class="signupbtn" ion-button (click)="signup()" [disabled]="!signupData.email || !signupData.password || !signupData.passwordRetyped" >Signup</button>
-    </ion-card-content>
-  </ion-card>
- 
+      <button full block round outline class="signupbtn" ion-button (click)="signup()" [disabled]="!signupData.email || !signupData.password || !signupData.passwordRetyped" >Signup</button> -->
+  
 </ion-content>

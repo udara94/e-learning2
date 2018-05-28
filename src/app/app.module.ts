@@ -3,6 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+//import { AppComponent } from './app.component';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -22,6 +23,11 @@ import {ForgotPasswordPage} from '../pages/forgot-password/forgot-password';
 import {MyQuestionPage} from '../pages/my-question/my-question';
 import {UpdatePostPage} from '../pages/update-post/update-post';
 import {PostAnswerPage} from '../pages/post-answer/post-answer';
+import {CommentsPage} from '../pages/comments/comments';
+import {TabsPage} from '../pages/tabs/tabs';
+import {EventModelPage} from '../pages/event-model/event-model';
+import {MyDraftPage} from '../pages/my-draft/my-draft';
+import {RewardsPage} from '../pages/rewards/rewards';
 
 
 import {AngularFireModule} from 'angularfire2';
@@ -33,7 +39,12 @@ import { UserProvider } from '../providers/user/user';
 import { ProfileProvider } from '../providers/profile/profile';
 import { DataProvider } from '../providers/data/data';
 import { QuestionProvider } from '../providers/question/question';
-
+import {NgCalendarModule} from 'ionic2-calendar';
+import {RoundProgressModule} from 'angular-svg-round-progressbar';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ReferenceProvider } from '../providers/reference/reference';
+import {SearchPipe} from '../pipes/search/search';
+import {SortPipe} from '../pipes/sort/sort';
 
 
 
@@ -65,7 +76,14 @@ var config={
     ForgotPasswordPage,
     MyQuestionPage,
     UpdatePostPage,
-    PostAnswerPage
+    PostAnswerPage,
+    CommentsPage,
+    TabsPage,
+    EventModelPage,
+    MyDraftPage,
+    RewardsPage,
+    SearchPipe,
+    SortPipe
   
   ],
   imports: [
@@ -75,6 +93,11 @@ var config={
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     SelectSearchableModule,
+    NgCalendarModule,
+    RoundProgressModule,
+    NgCircleProgressModule.forRoot({radius: 100,outerStrokeWidth: 16,innerStrokeWidth: 8,outerStrokeColor: "#78C000",innerStrokeColor: "#C7E596",animationDuration: 300,
+      
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -95,7 +118,12 @@ var config={
     ForgotPasswordPage,
     MyQuestionPage,
     UpdatePostPage,
-    PostAnswerPage
+    PostAnswerPage,
+    CommentsPage,
+    TabsPage,
+    EventModelPage,
+    MyDraftPage,
+    RewardsPage
    
   ],
   providers: [
@@ -106,7 +134,8 @@ var config={
     UserProvider,
     ProfileProvider,
     DataProvider,
-    QuestionProvider
+    QuestionProvider,
+    ReferenceProvider
   ]
 })
 export class AppModule {}

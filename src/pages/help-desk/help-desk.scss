@@ -2,4 +2,12 @@ page-help-desk {
 .div{
     float:right;
 }
+
+ion-item .item-inner {
+    border-bottom: 0px!important;
+ }
+ 
+ ion-item {
+    border-bottom: 0.55px solid #c8c7cc!important;
+ }
 }

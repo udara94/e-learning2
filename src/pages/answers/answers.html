@@ -8,45 +8,69 @@
 
 </ion-header>
 
-<ion-content class="background">
- <h1>{{title}}</h1>
- <ion-badge color="secondary">{{module}}</ion-badge>
+<ion-content class="background" (ionScroll)="onScroll($event)">
+  <div (swipe)="swipeEvent($event)">
+ 
+      <b><p class="module">{{module}}</p></b>
+    <p class="title">{{title}}</p>
+
+ 
  <br><br>
- <div class="div">{{question}}</div>
- <ion-img class="img"  width="150" height="200" src="{{URL}}" ></ion-img>
- <ion-card>
-   <ion-item>
-    <ion-avatar item-start>
-        <img src="{{imageURL}}">
-      </ion-avatar>
-   <h2>asked by {{fname}}</h2>
-   <p>{{displayTime}}</p>
-  </ion-item>
+ <ion-card class="card2" >
+ <div >{{question}}
+   <br>
+   <div align="center">
+    <ion-img   *ngIf="isVisible" width="150" height="200" src="{{URL}}" ></ion-img>
+   </div>
+ </div>
+ 
+ 
+        <ion-col center text-center>
+            <div align="center">
+              
+                    <img class="img" src="{{imageURL}}">
+                 
+               <h2>asked by {{fname}}</h2>
+               <p>{{showtime}}</p>
+              </div>
+              
+        </ion-col>
+      
+      
+  
  </ion-card>
  <hr>
-
- <ion-list  >
-   <h2>Answers</h2>
-  <ion-item *ngFor="let answers of answer_arr ">
-    <div class="div">
+ 
+ 
+    
+   <h2>{{length}} {{answerlabel}}</h2>
+   <ion-card *ngFor="let answers of answer_arr " class="card1">
+  
+    <div >
       <h2>
         {{ answers.userAnswer }}
       </h2>
     </div>
-    <ion-card>
-        <ion-item>
-         <ion-avatar item-start>
-             <img src="{{answers.imageURL}}">
-           </ion-avatar>
-        <h2>answered by {{answers.fname}}</h2>
-       </ion-item>
-      </ion-card>
+    
+       <div align="center">
+       <img class="img" src="{{answers.imageURL}}">
+       <h2>answered by {{answers.fname}}</h2>
+      </div>
   
-  </ion-item>
-</ion-list>
- <button ion-button  block  full  (click)="postAnswerpage(key)" >Answer</button>
+      
+    
+  
+  
+</ion-card>
+
+ <button ion-button class="btn2" block  full  (click)="postAnswerpage(key)" >Answer</button>
  
 
-
+</div>
+<ion-fab center bottom *ngIf="showMe" (click)="scroll()" class="myfab">
+    <button ion-fab color="light" class="fabBtn">
+      <ion-icon name="ios-arrow-up-outline"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
 

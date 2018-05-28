@@ -1,0 +1,71 @@
+<!--
+  Generated template for the CommentsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+
+    <ion-buttons end (click)="close()">
+      <button ion-button>
+        <ion-icon name="close"></ion-icon>
+      </button>
+
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+   
+   
+  
+
+  <ion-item *ngFor="let comment of comment_arr;let i = index " no-lines (swipe)="swipeEvent($event)">
+
+
+    
+      <ion-avatar item-start>
+        <img src="{{comment.imageURL}}" />
+      </ion-avatar>
+      <ion-badge class="badge">
+        <div align="center">
+        <h3>{{comment.fname}}</h3>
+        <br>
+        <p >{{ comment.userComment }}</p>
+       
+      </div>
+      </ion-badge>
+
+
+    
+
+
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+ 
+       
+      
+<ion-card>
+  <ion-row>
+    <ion-col center text-center class="col1">
+
+      <textarea class="textarea" placeholder="Enter your comments here" (input)="adjustTextarea($event);" [(ngModel)]="comment"
+        required autosize> </textarea>
+
+    </ion-col >
+    <ion-col class="col2" width-25 center text-center>
+    <button ion-button class="btn" (click)="addComments()" end>
+      <ion-icon name="ios-send"></ion-icon>
+    </button>
+    </ion-col>
+
+  </ion-row>
+</ion-card>
+</ion-footer>

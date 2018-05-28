@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, LoadingController, Item } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { NavController, NavParams,Content, ModalController, LoadingController, Item } from 'ionic-angular';
 import { QuesionsPage } from '../quesions/quesions';
 import { AnswersPage } from '../answers/answers';
+import { CommentsPage } from '../comments/comments';
 import { AngularFireDatabase, FirebaseListObservable, DATABASE_PROVIDERS } from 'angularfire2/database-deprecated';
 import { SelectSearchable } from 'ionic-select-searchable';
 import firebase from 'firebase';
 //import { ProfileProvider } from '../../providers/profile/profile';
-
-
+import { timer } from 'rxjs/observable/timer';
+import { Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 @Component({
   selector: 'page-qustion-list',
@@ -16,6 +19,8 @@ import firebase from 'firebase';
 export class QustionListPage {
 
   //questions: FirebaseListObservable<any>;
+
+  @ViewChild(Content) content: Content;
 
   public countryList: Array<any>;
   public loadedCountryList: Array<any>;
@@ -34,14 +39,22 @@ export class QustionListPage {
   public test:Array<any>=[];
   public userImage:any;
   public user:any;
+  public comments:any;
+  public answerarr:Array<any>=[];
+  public buttonClicked:boolean=false;
+  showMe =false;
+  showSplash = true;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public modelCtrl: ModalController,
     private db: AngularFireDatabase,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    platform: Platform,
+     statusBar: StatusBar, 
+     splashScreen: SplashScreen) {
 
-     
+    
 
 }
 
@@ -62,6 +75,13 @@ initializeRef() {
     this.quizRef = firebase.database().ref('/IT');
   }
   console.log("dtabase: " + this.quizRef);
+
+}
+ionViewDidLoad(){
+
+  this.getQuestions();   
+  
+  console.log("uid:"+this.imageURL);
 
 }
 
@@ -89,14 +109,24 @@ initializeRef() {
     // })
 
 
-    this.db.list('IT').subscribe(data => {
-      this.test = data;    
+    this.db.list(this.quizRef).subscribe(data => {
+      this.test = data;  
+      console.log("question legnth:"+this.test.length)  
+     
       this.test.map(item => {
+        console.log("question:"+item)
         
         //this.test.push(item.$key);
-       //console.log("uid is"+item.uid);
+       console.log("key"+item.$key);
 
-       
+     
+   this.comments=this.db.list(this.quizRef+item.$key+'/answer/').subscribe(answerdata=>{
+        this.answerarr=answerdata;
+        this.answerarr.map(item=>{
+           console.log("answerarr:"+this.answerarr);
+           console.log("path:"+this.db.list(this.quizRef+item.$key+'/answer/'));
+        })
+      });
        //this.user=firebase.database().ref('user/'+item.uid);
       // console.log("userImage is:"+this.userImage);
       // if(item.uid==this.user){
@@ -108,47 +138,43 @@ initializeRef() {
       
   });
 
+ 
+
+  }
+
+  initializeAnswer(){
+
+  }
+
+  dispalyCardContent(question){
+    
+    this.buttonClicked= !this.buttonClicked;
+  }
+
+  scrollToTop() {
+    if(this.content.scrollTop==0){
+      this.showMe=false;
+    }
+    else if(this.content.scrollTop>10){
+      this.showMe=true;
+    }
+
+
+  }
+
+  scroll(){
+    this.content.scrollToTop();
+  }
+
+  onScroll(event){
+console.log("fffff:"+event);
+this.scrollToTop();
+
   }
 
 
 
-  // ITquestions(){
-  //   this.quizRef = firebase.database().ref('/IT');
-  //   this.quizRef.on('value',itemSnapshot=>{
-  //     this.questions =[];
-  //     itemSnapshot.forEach(itemsnapshot => {
-  //       this.questions.push(itemsnapshot.val());
-        
-  //       return false;      
-  //     });
   
-  //   })
-  // }
-  // ENquestions(){
-  //   this.quizRef = firebase.database().ref('/Engineer');
-  //   this.quizRef.on('value',itemSnapshot=>{
-  //     this.questions =[];
-  //     itemSnapshot.forEach(itemsnapshot => {
-  //       this.questions.push(itemsnapshot.val());
-        
-  //       return false;      
-  //     });
-  
-  //   })
-  // }
-  // BMquestions(){
-  //   this.quizRef = firebase.database().ref('/Business');
-  //   this.quizRef.on('value',itemSnapshot=>{
-  //     this.questions =[];
-  //     itemSnapshot.forEach(itemsnapshot => {
-  //       this.questions.push(itemsnapshot.val());
-        
-  //       return false;      
-  //     });
-  
-  //   })
-  // }
-
 
 
   getItems(searchbar) {
@@ -189,7 +215,7 @@ getQuestions(){
 
   this.quizRef.on('value', questions => {
     let countries = [];
-    loading.dismiss();
+   loading.dismiss();
     questions.forEach(country => {
       
       countries.push(country.val());
@@ -204,18 +230,50 @@ getQuestions(){
   
 
 }
-  ionViewDidLoad(){
 
-    this.getQuestions();   
-    
-    console.log("uid:"+this.imageURL);
+refreshQuestions(){
  
-  }
+  this.initializeQuiz()
+
+  this.quizRef.on('value', questions => {
+    let countries = [];
+    
+    questions.forEach(country => {
+      
+      countries.push(country.val());
+      
+      return false;
+    });
+  //  console.log("countries :"+countries);
+    this.questions = countries;
+    //console.log("this is question :"+questions);
+    this.loadedCountryList = countries;
+  });
+  
+}
+
+
+
+doRefresh(refresher) {
+  console.log('Begin async operation', refresher);
+this.refreshQuestions();
+  setTimeout(() => {
+    console.log('Async operation has ended');
+    refresher.complete();
+  }, 2000);
+}
+  
   
 
   addQuestions() {
     let openQuestionPage = this.modelCtrl.create(QuesionsPage);
     openQuestionPage.present();
+
+  }
+
+  addcomments(question) {
+    let openCommentPage = this.modelCtrl.create(CommentsPage,{data:question});
+    openCommentPage.present();
 
   }
 

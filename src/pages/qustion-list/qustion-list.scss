@@ -1,3 +1,95 @@
 page-qustion-list {
 
+    // .comment{
+    //     border-radius: 30px !important;
+    //     padding-left: 30px !important;
+    //     font-size: 0.9em;
+    //     margin-bottom: 10px;
+    //     border: 1px solid #ffffff;
+    //     border-bottom: 0px !important;
+    //     box-shadow: none !important;
+      
+    // }
+    // .header {
+    //     background-color: blue;
+    //     background-image: linear-gradient(blue, aqua);
+    //     color: white;
+    //   }
+    
+    
+  
+  .header{
+    // background-image: url('../assets/imgs/background.jpg');
+    // background-repeat: no-repeat;
+    // background-position: center;
+    // height: 80px;
+    
+  }
+    // .title{
+    //     font-family: 'Raleway', 'Lato', Arial, sans-serif;
+    //     color: white !important;
+    //     text-shadow: 0 5px 3px rgba(75, 58, 58, 0.3);
+    // }
+    [text-color="my-custom-color"] {
+        color: #622569;
+    }
+
+    .fabBtn{
+        width: 30px;
+        height: 30px;
+        
+        
+        /* Styles */
+       background: linear-gradient(rgba(21, 220, 255, 0.5), rgba(23, 88, 228, 0.7));    
+       
+       
+        box-shadow: 
+            inset 2 1px rgba(32, 8, 8, 0.4), 
+            0 2px 2px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s ease-out;
+    
+        /* Font styles */
+        color: white;
+    //     text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    //     font-size: 14px;
+    //    font-weight: bold;
+    //     font-family: 'Raleway', 'Lato', Arial, sans-serif;
+       
+    }
+.search{
+//    width: 100%;
+// padding: 4px 4px 4px 4px;
+// margin-bottom: 0px;
+
+// /* Styles */
+// border: 1px solid #459cee; /* Fallback */
+// border: 1px solid rgba(117, 140, 243, 0.8);
+// background: rgba(56, 117, 248, 0.15);
+// border-radius: 6px;
+// box-shadow: 
+//     0 1px 0 rgba(20, 139, 250, 0.2), 
+//     inset 0 1px 1px rgba(0,0,0,0.1);
+// -webkit-transition: all 0.3s ease-out;
+// -moz-transition: all 0.3s ease-out;
+// -ms-transition: all 0.3s ease-out;
+// -o-transition: all 0.3s ease-out;
+// transition: all 0.3s ease-out;
+
+
+// /* Font styles */
+// font-family: 'Raleway', 'Lato', Arial, sans-serif;
+// color: rgba(126, 251, 255, 0.5);
+// //font-size: 13px;
+ 
+// -webkit-border-radius: 15px;
+// -moz-border-radius: 15px;
+
+}
+
+.search:focus {
+    // width: 100%;
+}
+
+
 }

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>postAnswer</ion-title>
+    <ion-title>Post Answer</ion-title>
     <ion-buttons end (click)="close()">
       <button ion-button>
         <ion-icon name="close"></ion-icon>
@@ -19,9 +19,9 @@
 
 
 <ion-content padding>
-    <textarea class="textarea" placeholder="Enter your question here" (input)="adjustTextarea($event);" [(ngModel)]="answer"
+    <textarea class="textarea" placeholder="Enter your answer here" (input)="adjustTextarea($event);" [(ngModel)]="answer"
     required autosize> </textarea>
 
-    <button ion-button (click)="addAnswer()" color="theam">Post&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
+    <button ion-button (click)="addAnswer();updateScore()" class="btn">Post&nbsp;&nbsp;<ion-icon name="send"></ion-icon></button>
 
 </ion-content>

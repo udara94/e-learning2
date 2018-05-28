@@ -1,28 +1,71 @@
 page-home {
+    // .background{
+    //     //position: fixed;
+    //    // left: 0;
+    //    // right: 0;
+    //    // z-index: 1;
+      
+    //    // display: block;
+    //     background-image: url('../assets/imgs/background.jpg');
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+        
+        
+
+    //   }
 
 
-/*
-.havingQuestion{
-    text-align: center;
-}
 
-
-
-.havingQuestionButton{
-    background-color: #c1502e
-}
-
-.havingAnswersButton{
-    background-color: #d5e1df
-}
-
-.studentHelpDesk{
-    background-color: 
-}*/
 
 .havingQuestion{
     text-align: center;
     color:  #622569;
+}
+
+.card1{
+  //  background: radial-gradient(rgba(103, 150, 250, 0.7),rgba(163, 192, 253, 0.7),rgba(255, 255, 255, 0.5));
+ background:linear-gradient(to bottom right,rgba(255, 255, 255, 0.5),
+ rgba(163, 192, 253, 0.7),
+ rgba(74, 132, 255, 0.7));
+ -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border: 1px solid #4e3043;
+   // border-radius: 25px;
+    
+}
+.card1:hover {
+    box-shadow: 
+        inset 0 1px #068fff, 
+        inset 0 20px 30px #068fff;
+    }
+    
+    /* Fallback */
+    .card1:hover {
+    background: #068fff;
+    }
+.card2{
+    width: 100%;
+    padding: 8px 5px;
+    
+    /* Styles */
+    background: linear-gradient(rgba(74, 84, 214, 0.5), rgba(76,49,65,0.7));    
+    border-radius: 5px;
+    border: 1px solid #4e3043;
+    box-shadow: 
+    	inset 0 1px rgba(255,255,255,0.4), 
+    	0 2px 1px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+
+    /* Font styles */
+    color: white;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.3);
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Raleway', 'Lato', Arial, sans-serif;
+     
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
 }
 
 .havingAnswers{
@@ -39,12 +82,7 @@ page-home {
 
 
 
-    // .background-page{
-    //     background-image: url('../assets/imgs/books.jpg');
-    //     background-repeat: no-repeat;
-    //     background-position: center;
-        
-    // }
+
 
     .div{
         float: right;

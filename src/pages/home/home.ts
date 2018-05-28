@@ -10,12 +10,16 @@ import { PopoverController } from 'ionic-angular';
 import { PopOverPage } from '../pop-over/pop-over';
 import { ProfilePage } from '../profile/profile';
 import {MyQuestionPage} from '../my-question/my-question';
+import {RewardsPage} from '../rewards/rewards';
+import {MyDraftPage} from '../my-draft/my-draft';
 import firebase from 'firebase';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
+
+
 export class HomePage {
 
 
@@ -37,8 +41,24 @@ public model:any;
     });
   }
 
-
-
+  viewQuestions(){
+    this.navCtrl.push(QustionListPage);
+  } 
+  viewMyProfile(){
+    this.navCtrl.push(ProfilePage);
+  }
+  viewMyQuestions(){
+    this.navCtrl.push(MyQuestionPage);
+  } 
+  viewHelpDesk(){
+    this.navCtrl.push(HelpDeskPage);
+  } 
+  viewMyRewards(){
+    this,this.navCtrl.push(RewardsPage);
+  } 
+  viewMyDraft(){
+    this.navCtrl.push(MyDraftPage);
+  }
   questions(){
     this.navCtrl.push(QustionListPage);
   }
@@ -53,7 +73,7 @@ public model:any;
 
   addQuestion() {
 
-    this.moduleRef = firebase.database().ref('/bmModule');
+    this.moduleRef = firebase.database().ref('/enModule');
   
          this.moduleRef.push({
           module: this.model,
@@ -61,5 +81,8 @@ public model:any;
         });
         console.log(this.model);
 
+      }
+      clear(){
+        this.model="";
       }
 }

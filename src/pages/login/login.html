@@ -1,20 +1,34 @@
-<!--
-  Generated template for the LoginPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-
-</ion-header>
 
 
-<ion-content class="content" padding >
-  <!--<br><br><br><br>
+<ion-content class="background-image" padding >
+
+    <form class="form-4" align="center">
+        <h1>Student Help Desk</h1>
+<div align="center">
+      <img width="80" height="100"  src="https://firebasestorage.googleapis.com/v0/b/cpmad-83d5d.appspot.com/o/SLIIT_Logo_Crest%20(1).png?alt=media&token=2a05f3a2-7dc9-4fa6-b4bd-9b65d64650b4"/>
+    </div>
+        <h1>Welcome !</h1>
+
+     <br><br>
+        <p>
+            <label for="login">Register Number</label>
+            <input type="text" name="login" placeholder="Register Number" [(ngModel)]="loginData.email" required>
+        </p>
+        
+        <p>
+            <label for="password" >Password</label>
+            <input type="password" name='password' [(ngModel)]="loginData.password" placeholder="Password" required> 
+        </p>
+    <br>
+        <p>
+            <input type="submit" name="submit" value="Login" (click)="login()">
+        </p> 
+      <br>
+        <pre><p class="password"><button  ion-button clear (click)="forgot()">Password </button> | <button ion-button clear (click)="signup()">Register</button></p></pre>
+      
+    </form>
+   
+  <!-- <br><br><br><br>
   <ion-list>
     <ion-item>
       <ion-label floating>Registration Number</ion-label>
@@ -29,8 +43,8 @@
 
   <button ion-button full (click)="login()" [disabled]="!loginData.email|| !loginData.password" class="btnlogin ">Login</button>
  <button ion-button color="blue" (click)="signup()" class="chol button-positive  button-block " clear>create account</button><br>
- <button ion-button color="blue" (click)="forgot()" class="chol button-positive  button-block " clear>forgot password</button>-->
-
+ <button ion-button color="blue" (click)="forgot()" class="chol button-positive  button-block " clear>forgot password</button> -->
+<!-- 
  <ion-card>
   <ion-card-header>
     Login
@@ -55,7 +69,7 @@
       <button ion-button clear full color="light" (click)="signup()" class="signupbtn" >Don't have an account? Sign up</button>
     </ion-list>
   </ion-card-content>
-</ion-card>
+</ion-card> -->
 
 
  

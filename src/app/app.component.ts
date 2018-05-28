@@ -10,7 +10,7 @@ import {AngularFireAuth} from 'angularfire2/auth';
 import { timer } from 'rxjs/observable/timer';
 //import { StatusBar } from '@ionic-native/status-bar';
 import { SelectSearchable } from 'ionic-select-searchable';
-
+import {TabsPage} from '../pages/tabs/tabs';
 
 
 
@@ -18,7 +18,7 @@ import { SelectSearchable } from 'ionic-select-searchable';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  rootPage:any = TabsPage;
    showSplash = true;
 
 
@@ -33,7 +33,7 @@ export class MyApp {
         if(!auth)
         this.rootPage=LoginPage;
         else
-        this.rootPage=HomePage;
+        this.rootPage=TabsPage;
       });
       
       platform.ready().then(() => {

@@ -27,13 +27,22 @@ export class PostAnswerPage {
   public imageURL="";
   fname:any;
   data: any;
-  
+  public myDate: number;
+  public postedTime:any;
+  public points:number;
+  public score:number;
+  public user:any;
 
+  
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
     public toastCtrl:ToastController,
   public alert:AlertController,
 public ProfileProvider:ProfileProvider ) {
+
+  var date = new Date();
+  this.myDate = date.getTime() 
+  this.postedTime=this.myDate;
   }
 
   ionViewDidLoad() {
@@ -46,26 +55,48 @@ public ProfileProvider:ProfileProvider ) {
 
       this.userProfile = userProfileSnapshot.val();
 
-      // console.log("userprofile" + this.userProfile.ITNo);
-      // console.log("firstName: " + this.userProfile.fname);
-      // console.log("lastName: " + this.userProfile.lname);
-      // console.log("email: " + this.userProfile.email);
-      // console.log("mobile: " + this.userProfile.mobile);
-      // console.log("feild: " + this.userProfile.feild);
-      // console.log("imageURL:"+this.userProfile.imageURL);
+      this.imageURL=this.userProfile.imageURL;
+      this.points=this.userProfile.points;
+
      
-      if(this.imageURL==""){
-        this.imageURL="../assets/imgs/profile1.png";
-        console.log("no profile picture");
+      if(this.points==0){
+        this.score=0
       }
       else{
-      this.imageURL=this.userProfile.imageURL;
-      console.log("imageURL :"+this.imageURL)
+        this.score=this.points
       }
+      console.log("pointsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:"+this.points);
+     
+      if(this.imageURL==""){
+        this.imageURL="https://firebasestorage.googleapis.com/v0/b/cpmad-83d5d.appspot.com/o/images%2FUser_icon_BLACK-01.png?alt=media&token=1e171c21-b6fd-405c-b409-97ad6b4b1e26";
+        console.log("no profile picture");
+      }
+    
     });
 
     this.initializeRef();
+    // this.calculateScore();
 
+  }
+
+  calculateScore(){
+    this.score=this.score+5;
+    console.log("score is:"+this.score)
+  }
+
+  updateScore(){
+    this.calculateScore();
+
+      this.userid=firebase.auth().currentUser.uid;
+      
+      this.user=firebase.database().ref('user/'+this.userid).update({
+        points:this.score
+   
+      })
+      .then(res=>{
+        console.log("points added");
+      })
+    
   }
   initializeRef() {
 
@@ -107,12 +138,13 @@ public ProfileProvider:ProfileProvider ) {
 
           userAnswer: this.answer,
           imageURL:this.imageURL,
-          fname:this.fname
+          fname:this.fname,
+          postedTime:this.postedTime,
 
         });
 
         this.Alertsuccessfull();
-
+        this.navCtrl.pop();
       } catch{
         this.AlertNotSuccessfull()
       }
